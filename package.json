@@ -57,7 +57,7 @@
     "fix": "npm run lint -- --fix",
     "lint": "eslint --ignore-path .gitignore --ext=js .",
     "pretty": "prettier --write **/*.css **/*.json **/*.md",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "babel": {
     "presets": [

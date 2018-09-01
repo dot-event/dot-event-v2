@@ -1,12 +1,34 @@
 import DotEvent from "../dist/core"
 
 describe("root subscriber emit", () => {
+  test("once", async () => {
+    const event = new DotEvent()
+    const fn = jest.fn()
+
+    event.op("create")
+    event.on("create", fn)
+
+    await event.create().catch(console.error)
+
+    const payload = {
+      event: {
+        emitter: expect.any(DotEvent),
+        keys: ["create"],
+        op: "create",
+        prep: undefined,
+        props: undefined,
+      },
+    }
+
+    expect(fn.mock.calls).toEqual([[payload]])
+  })
+
   test("twice", async () => {
     const event = new DotEvent()
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn)
+    event.on("create", fn)
 
     await event.create().catch(console.error)
     await event.create().catch(console.error)
@@ -29,7 +51,7 @@ describe("root subscriber emit", () => {
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn)
+    event.on("create", fn)
 
     await event.create("hello").catch(console.error)
 
@@ -41,7 +63,7 @@ describe("root subscriber emit", () => {
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn, { opt: true })
+    event.on("create", fn, { opt: true })
 
     await event.create().catch(console.error)
 
@@ -64,7 +86,7 @@ describe("root subscriber emit", () => {
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn)
+    event.on("create", fn)
 
     await event.create({ opt: true }).catch(console.error)
 
@@ -87,7 +109,7 @@ describe("root subscriber emit", () => {
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn)
+    event.on("create", fn)
 
     await event.create(true).catch(console.error)
 
@@ -110,7 +132,7 @@ describe("root subscriber emit", () => {
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn)
+    event.on("create", fn)
 
     await event
       .create(true, { opt: true })
@@ -136,7 +158,7 @@ describe("root subscriber emit", () => {
     const fn = jest.fn()
 
     event.op("create")
-    event.on("create", "op", fn, { opt2: true })
+    event.on("create", fn, { opt2: true })
 
     await event
       .create(true, { opt: true })

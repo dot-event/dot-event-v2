@@ -1,182 +1,255 @@
 import DotEvent from "../dist/core"
 
-describe("root subscriber emit", () => {
-  test("once", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+describe("without props", () => {
+  describe("once", () => {
+    test("two emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn)
+      event.op("create")
+      event.once("create", fn)
 
-    await event.create().catch(console.error)
+      await event.create().catch(console.error)
+      await event.create().catch(console.error)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-    }
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
 
-    expect(fn.mock.calls).toEqual([[payload]])
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+
+    test("two emits with promise", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.op("create")
+      event.once("create").then(fn)
+
+      await event.create()
+      await event.create()
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+
+    test("two emits with promise and callback", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.op("create")
+      event.once("create", fn).then(fn)
+
+      await event.create()
+      await event.create()
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload]])
+    })
   })
 
-  test("twice", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+  describe("on", () => {
+    test("one emit", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn)
+      event.op("create")
+      event.on("create", fn)
 
-    await event.create().catch(console.error)
-    await event.create().catch(console.error)
+      await event.create().catch(console.error)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-    }
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
 
-    expect(fn.mock.calls).toEqual([[payload], [payload]])
-  })
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
 
-  test("shouldn't emit", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+    test("two emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn)
+      event.op("create")
+      event.on("create", fn)
 
-    await event.create("hello").catch(console.error)
+      await event.create().catch(console.error)
+      await event.create().catch(console.error)
 
-    expect(fn.mock.calls.length).toBe(0)
-  })
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
 
-  test("subscriber options", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+      expect(fn.mock.calls).toEqual([[payload], [payload]])
+    })
 
-    event.op("create")
-    event.on("create", fn, { opt: true })
+    test("no emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    await event.create().catch(console.error)
+      event.op("create")
+      event.on("create", fn)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-      opt: true,
-    }
+      await event.create("hello").catch(console.error)
 
-    expect(fn.mock.calls).toEqual([[payload]])
-  })
+      expect(fn.mock.calls.length).toBe(0)
+    })
 
-  test("options", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+    test("subscriber options", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn)
+      event.op("create")
+      event.on("create", fn, { opt: true })
 
-    await event.create({ opt: true }).catch(console.error)
+      await event.create().catch(console.error)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-      opt: true,
-    }
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+        opt: true,
+      }
 
-    expect(fn.mock.calls).toEqual([[payload]])
-  })
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
 
-  test("extras", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+    test("emit options", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn)
+      event.op("create")
+      event.on("create", fn)
 
-    await event.create(true).catch(console.error)
+      await event.create({ opt: true }).catch(console.error)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        extras: [true],
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-    }
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+        opt: true,
+      }
 
-    expect(fn.mock.calls).toEqual([[payload]])
-  })
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
 
-  test("extras and options", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+    test("emit extras", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn)
+      event.op("create")
+      event.on("create", fn)
 
-    await event
-      .create(true, { opt: true })
-      .catch(console.error)
+      await event.create(true).catch(console.error)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        extras: [true],
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-      opt: true,
-    }
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          extras: [true],
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
 
-    expect(fn.mock.calls).toEqual([[payload]])
-  })
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
 
-  test("extras, options, and subscriber options", async () => {
-    const event = new DotEvent()
-    const fn = jest.fn()
+    test("emit extras and options", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
 
-    event.op("create")
-    event.on("create", fn, { opt2: true })
+      event.op("create")
+      event.on("create", fn)
 
-    await event
-      .create(true, { opt: true })
-      .catch(console.error)
+      await event
+        .create(true, { opt: true })
+        .catch(console.error)
 
-    const payload = {
-      event: {
-        emitter: expect.any(DotEvent),
-        extras: [true],
-        keys: ["create"],
-        op: "create",
-        prep: undefined,
-        props: undefined,
-      },
-      opt: true,
-      opt2: true,
-    }
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          extras: [true],
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+        opt: true,
+      }
 
-    expect(fn.mock.calls).toEqual([[payload]])
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+
+    test("emit extras and options with subscriber options", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.op("create")
+      event.on("create", fn, { opt2: true })
+
+      await event
+        .create(true, { opt: true })
+        .catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          extras: [true],
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+        opt: true,
+        opt2: true,
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
   })
 })

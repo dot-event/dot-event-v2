@@ -57,6 +57,7 @@ describe("without props", () => {
 
       await event.create()
       await event.create()
+      await event.create()
 
       const payload = {
         event: {
@@ -69,6 +70,31 @@ describe("without props", () => {
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload]])
+    })
+  })
+
+  describe("onceEmitted", () => {
+    test("two emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.op("create")
+      await event.create().catch(console.error)
+
+      event.onceEmitted("create", fn)
+      await event.create().catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: ["create"],
+          op: "create",
+          prep: undefined,
+          props: undefined,
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
     })
   })
 

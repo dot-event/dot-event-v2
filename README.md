@@ -10,7 +10,7 @@ Prop-based asynchronous event emitter.
 npm install --save dot-event
 ```
 
-## Create emitter
+## Emitter
 
 ```js
 import Emitter from "dot-event"
@@ -58,7 +58,7 @@ emitter.on("after", () => {})
 emitter.emit()
 ```
 
-## Prop emitter
+## Emit prop
 
 Any subscriber can use a prop identifier:
 
@@ -90,4 +90,47 @@ Subscribe to any prop change within a prop, and fire immediately if previously e
 ```js
 emitter.emit("hello.world")
 emitter.onceAnyEmitted("hello", () => {})
+```
+
+## Emit operation
+
+Define your operation (only do this once):
+
+```js
+emitter.op("create")
+```
+
+Use the operation:
+
+```js
+emitter.on("create", () => {})
+emitter.create()
+```
+
+## Emit before operation with props and options
+
+Define the `create` operation, then subscribe to `before` `create` `hello.world`:
+
+```js
+emitter.op("create")
+emitter.on(
+  "before",
+  "create",
+  "hello.world",
+  ({ hi }) => {}
+)
+emitter.create("hello.world", { hi: true })
+```
+
+## Subscriber shorthand
+
+Build lots of subscribers at once:
+
+```js
+emitter.on([
+  [() => {}],
+  ["hello.world", () => {}],
+  ["create", "hello.world", () => {}],
+  ["after", "create", "hello.world", () => {}],
+])
 ```

@@ -27,20 +27,20 @@ emitter.emit()
 ## Cheatsheet
 
 | Terms       | Functions                                                         |
-| ----------- | :---------------------------------------------------------------- |
+| :---------- | :---------------------------------------------------------------- |
 | Operations  | `op`                                                              |
 | Emitters    | `emit`, `emitAny`, `emitOn`, `emitAnyOn`                          |
 | Subscribers | `on`, `onAny`, `once`, `onceEmitted`, `onceAny`, `onceAnyEmitted` |
 
 Subscribers and emitters take **one**, **some**, or **none** of these arguments:
 
-| Argument type | Description                                         | Emitter | Subscriber |
-| ------------- | --------------------------------------------------- | ------- | ---------- |
-| `String`      | Preposition (`before`, `after`)                     | ✔       |            |
-| `String`      | Operation (see ["Emit operation"](#emit-operation)) | ✔       | ✔          |
-| `String`      | Props (period-separated ids)                        | ✔       | ✔          |
-| `Function`    | Subscription listener                               |         | ✔          |
-| `Object`      | Subscription options                                | ✔       | ✔          |
+| Argument type | Description                     | Emitter | Subscriber |
+| :------------ | :------------------------------ | :-----: | :--------: |
+| `String`      | Preposition (`before`, `after`) |    ✔    |            |
+| `String`      | [Operation](#emit-operation)    |    ✔    |     ✔      |
+| `String`      | Props (period-separated ids)    |    ✔    |     ✔      |
+| `Function`    | Subscription listener           |         |     ✔      |
+| `Object`      | Subscription options            |    ✔    |     ✔      |
 
 All the features together:
 

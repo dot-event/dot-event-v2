@@ -34,13 +34,13 @@ emitter.emit()
 
 Subscribers and emitters take **one**, **some**, or **none** of these arguments:
 
-| Argument type | Description                     | Emitter | Subscriber |
-| :------------ | :------------------------------ | :-----: | :--------: |
-| `String`      | Preposition (`before`, `after`) |         |     ✔      |
-| `String`      | [Operation](#emit-operation)    |    ✔    |     ✔      |
-| `String`      | Props (period-separated ids)    |    ✔    |     ✔      |
-| `Object`      | Subscription options            |    ✔    |     ✔      |
-| `Function`    | Subscription listener           |         |     ✔      |
+| Argument type | Description                                                   | Emitter | Subscriber |
+| :------------ | :------------------------------------------------------------ | :-----: | :--------: |
+| `String`      | [Preposition](#subscribe-before-or-after) (`before`, `after`) |         |     ✔      |
+| `String`      | [Operation](#emit-operation)                                  |    ✔    |     ✔      |
+| `String`      | [Props](#emit-prop) (period-separated ids)                    |    ✔    |     ✔      |
+| `Object`      | [Subscription options](#emit-options)                         |    ✔    |     ✔      |
+| `Function`    | Subscription listener                                         |         |     ✔      |
 
 All the features together:
 
@@ -68,15 +68,9 @@ emitter.emit(
 emitter.create("my.prop.id", { y: true })
 ```
 
-| Subscription listeners           |                                                      |
-| :------------------------------- | ---------------------------------------------------- |
-| Can be asynchronous              | ⇢ Emitters wait for concurrent resolution            |
-| Receive a single object argument | ⇢ Argument contains subscription options             |
-|                                  | ⇢ Argument contains `event` property with extra info |
+**Subscription listeners can be asynchronous.** Emitters return a promise that resolves once listeners resolve concurrently.
 
-| Emitters         |                                                    |
-| :--------------- | -------------------------------------------------- |
-| Return a promise | ⇢ Resolves once all listeners concurrently resolve |
+**Subscription listeners receive a single object argument.** The object contains [subscription options](#emit-options) and an `event` property with extra info.
 
 There are some features we haven't covered, so keep reading...
 
@@ -111,7 +105,7 @@ emitter.emit()
 emitter.onceEmitted(() => {}) // emits immediately
 ```
 
-## Emit before or after
+## Subscribe before or after
 
 Subscribe to before or after the main emit:
 

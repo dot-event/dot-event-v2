@@ -28,9 +28,9 @@ emitter.emit()
 
 | Terms      | Functions                                                         |
 | :--------- | :---------------------------------------------------------------- |
-| Operation  | `op`                                                              |
 | Emitter    | `emit`, `emitAny`, `emitOn`, `emitAnyOn`                          |
 | Subscriber | `on`, `onAny`, `once`, `onceEmitted`, `onceAny`, `onceAnyEmitted` |
+| Setter     | `op`                                                              |
 
 Subscribers and emitters take **one**, **some**, or **none** of these arguments:
 

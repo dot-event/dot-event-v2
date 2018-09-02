@@ -23,10 +23,10 @@
   "author": "dot-event <oss@dot-event.io>",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/dot-event/dot-event.git"
+    "url": "git+ssh://git@github.com/dot-event/core.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/dot-event/dot-event#readme",
+  "homepage": "https://github.com/dot-event/core#readme",
   "dependencies": {
     "@babel/runtime": "7.0.0"
   },

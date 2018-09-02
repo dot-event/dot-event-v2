@@ -87,7 +87,7 @@ emitter.on(({ hello }) => {})
 emitter.emit({ hello: "world" })
 ```
 
-Define default options from the subscriber as well:
+You may define default options from the subscriber as well:
 
 ```js
 emitter.on(({ hello }) => {}, { hello: "world" })
@@ -98,7 +98,8 @@ emitter.emit()
 
 ```js
 emitter.once(() => {})
-emitter.emit()
+emitter.emit() // emits
+emitter.emit() // doesn't emit
 ```
 
 ## Emit once emitted
@@ -107,7 +108,7 @@ Fire immediately if previously emitted:
 
 ```js
 emitter.emit()
-emitter.onceEmitted(() => {})
+emitter.onceEmitted(() => {}) // emits immediately
 ```
 
 ## Emit before or after
@@ -127,7 +128,8 @@ Any subscriber can use a prop identifier:
 
 ```js
 emitter.on("hello", () => {})
-emitter.emit("hello")
+emitter.emit("hello") // emits
+emitter.emit() // doesn't emit
 ```
 
 ## Emit any
@@ -136,14 +138,24 @@ Subscribe to any prop change:
 
 ```js
 emitter.onAny(() => {})
-emitter.emit("hello")
+emitter.emit("hello") // emits
+emitter.emit("hello.world") // emits
 ```
 
 Subscribe to any prop change within a prop:
 
 ```js
 emitter.onAny("hello", () => {})
-emitter.emit("hello.world")
+emitter.emit("hello.world") // emits
+emitter.emit() // doesn't emit
+```
+
+## Emit once any
+
+```js
+emitter.onceAny("hello", () => {})
+emitter.emit("hello.world") // emits
+emitter.emit("hello.world") // doesn't emit
 ```
 
 ## Emit once any emitted
@@ -152,7 +164,7 @@ Subscribe to any prop change within a prop, and fire immediately if previously e
 
 ```js
 emitter.emit("hello.world")
-emitter.onceAnyEmitted("hello", () => {})
+emitter.onceAnyEmitted("hello", () => {}) // emits immediately
 ```
 
 ## Emit operation
@@ -165,11 +177,12 @@ Define your operation (only do this once):
 emitter.op("create")
 ```
 
-Use the operation:
+Operations add a nifty shortcut function:
 
 ```js
 emitter.on("create", () => {})
-emitter.create()
+emitter.emit("create") // emits
+emitter.create() // or use the shortcut!
 ```
 
 ## Subscriber shorthand

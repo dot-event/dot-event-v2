@@ -14,7 +14,7 @@ describe("multi", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -29,25 +29,35 @@ describe("multi", () => {
       const fn = jest.fn()
 
       event.op("create")
-      event.on([["create", fn], ["create", "hello", fn]])
+      event.on([
+        ["create", "hello", fn],
+        ["create", "hello.world", fn],
+      ])
 
       await event.create("hello").catch(console.error)
+      await event.create("hello.world").catch(console.error)
 
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([
-            "::",
-            ":create:",
-            ":create:hello",
-          ]),
+          keys: new Set([":create:hello"]),
           op: "create",
           prep: undefined,
           props: "hello",
         },
       }
 
-      expect(fn.mock.calls).toEqual([[payload], [payload]])
+      const payload2 = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: new Set([":create:hello.world"]),
+          op: "create",
+          prep: undefined,
+          props: "hello.world",
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
 
     test("off", async () => {

@@ -14,7 +14,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -37,7 +37,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -71,7 +71,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -94,7 +94,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -118,7 +118,7 @@ describe("without props", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -143,7 +143,7 @@ describe("without props", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -169,7 +169,7 @@ describe("without props", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -196,7 +196,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -206,11 +206,7 @@ describe("without props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([
-            "::",
-            ":create:",
-            ":create:hello",
-          ]),
+          keys: new Set([":create:hello"]),
           op: "create",
           prep: undefined,
           props: "hello",
@@ -235,7 +231,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -258,7 +254,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -282,7 +278,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -306,7 +302,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
+          keys: new Set([":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,

@@ -2,36 +2,38 @@ import DotEvent from "../dist/core"
 
 describe("without op", () => {
   describe("on", () => {
-    test.only("two emits", async () => {
+    test("two emits", async () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
       event.on(fn)
 
-      await event.emit("create").catch(console.error)
-      await event.emit("fetch").catch(console.error)
+      await event.emit().catch(console.error)
+      await event.emit().catch(console.error)
 
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":create:"]),
-          op: "create",
+          keys: new Set(["::"]),
+          op: undefined,
           prep: undefined,
           props: undefined,
         },
       }
 
-      const payload2 = {
-        event: {
-          emitter: expect.any(DotEvent),
-          keys: new Set(["::", ":fetch:"]),
-          op: "fetch",
-          prep: undefined,
-          props: undefined,
-        },
-      }
+      expect(fn.mock.calls).toEqual([[payload], [payload]])
+    })
 
-      expect(fn.mock.calls).toEqual([[payload], [payload2]])
+    test("no emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.on(fn)
+
+      await event.emit("hello").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
+
+      expect(fn.mock.calls.length).toBe(0)
     })
   })
 })

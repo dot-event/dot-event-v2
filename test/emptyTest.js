@@ -1,6 +1,6 @@
 import DotEvent from "../dist/core"
 
-describe("without op", () => {
+describe("empty", () => {
   describe("on", () => {
     test("two emits", async () => {
       const event = new DotEvent()

@@ -1,22 +1,19 @@
 import DotEvent from "../dist/core"
 
-describe("with props", () => {
+describe("props", () => {
   describe("on", () => {
     test("one emit", async () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", "hello.world", fn)
+      event.on("hello.world", fn)
 
-      await event.create("hello.world").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello.world"]),
-          op: "create",
-          prep: undefined,
+          keys: new Set(["::hello.world"]),
           props: "hello.world",
         },
       }
@@ -28,18 +25,15 @@ describe("with props", () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", "hello.world", fn)
+      event.on("hello.world", fn)
 
-      await event.create("hello.world").catch(console.error)
-      await event.create("hello.world").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello.world"]),
-          op: "create",
-          prep: undefined,
+          keys: new Set(["::hello.world"]),
           props: "hello.world",
         },
       }
@@ -51,10 +45,9 @@ describe("with props", () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", "hello.world", fn)
+      event.on("hello.world", fn)
 
-      await event.create("hello").catch(console.error)
+      await event.emit("hello").catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
     })
@@ -65,21 +58,18 @@ describe("with props", () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
-      event.op("create")
-      event.onAny("create", "hello.world", fn)
+      event.onAny("hello.world", fn)
 
-      await event.create("hello").catch(console.error)
-      await event.create("hello.world").catch(console.error)
+      await event.emit("hello").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
       await event
-        .create("hello.world.again")
+        .emit("hello.world.again")
         .catch(console.error)
 
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello.world"]),
-          op: "create",
-          prep: undefined,
+          keys: new Set(["::hello.world"]),
           props: "hello.world",
         },
       }
@@ -87,9 +77,7 @@ describe("with props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello.world.again"]),
-          op: "create",
-          prep: undefined,
+          keys: new Set(["::hello.world.again"]),
           props: "hello.world.again",
         },
       }
@@ -103,17 +91,14 @@ describe("with props", () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
-      event.op("create")
-      await event.create("hello.world").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
 
-      event.onceAnyEmitted("create", "hello", fn)
+      event.onceAnyEmitted("hello", fn)
 
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello"]),
-          op: "create",
-          prep: undefined,
+          keys: new Set(["::hello"]),
           props: "hello",
         },
       }

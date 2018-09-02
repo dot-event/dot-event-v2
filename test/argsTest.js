@@ -1,7 +1,7 @@
 import DotEvent from "../dist/core"
 import { parseArgs } from "../dist/args"
 
-describe("parse args", () => {
+describe("args", () => {
   test("no args", () => {
     const emitter = new DotEvent()
     const options = parseArgs({ args: [], emitter })

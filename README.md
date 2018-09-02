@@ -36,11 +36,11 @@ Subscribers and emitters take **one**, **some**, or **none** of these arguments:
 
 | Argument type | Description                     | Emitter | Subscriber |
 | :------------ | :------------------------------ | :-----: | :--------: |
-| `String`      | Preposition (`before`, `after`) |    ✔    |            |
-| `String`      | [Operation](#emit-operation)    |    ✔    |     ✔      |
-| `String`      | Props (period-separated ids)    |    ✔    |     ✔      |
 | `Function`    | Subscription listener           |         |     ✔      |
 | `Object`      | Subscription options            |    ✔    |     ✔      |
+| `String`      | Props (period-separated ids)    |    ✔    |     ✔      |
+| `String`      | [Operation](#emit-operation)    |    ✔    |     ✔      |
+| `String`      | Preposition (`before`, `after`) |    ✔    |            |
 
 All the features together:
 

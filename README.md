@@ -26,21 +26,21 @@ emitter.emit()
 
 ## Cheatsheet
 
-| Terms       | Functions                                                         |
-| :---------- | :---------------------------------------------------------------- |
-| Operations  | `op`                                                              |
-| Emitters    | `emit`, `emitAny`, `emitOn`, `emitAnyOn`                          |
-| Subscribers | `on`, `onAny`, `once`, `onceEmitted`, `onceAny`, `onceAnyEmitted` |
+| Terms      | Functions                                                         |
+| :--------- | :---------------------------------------------------------------- |
+| Operation  | `op`                                                              |
+| Emitter    | `emit`, `emitAny`, `emitOn`, `emitAnyOn`                          |
+| Subscriber | `on`, `onAny`, `once`, `onceEmitted`, `onceAny`, `onceAnyEmitted` |
 
 Subscribers and emitters take **one**, **some**, or **none** of these arguments:
 
 | Argument type | Description                     | Emitter | Subscriber |
 | :------------ | :------------------------------ | :-----: | :--------: |
-| `Function`    | Subscription listener           |         |     ✔      |
-| `Object`      | Subscription options            |    ✔    |     ✔      |
-| `String`      | Props (period-separated ids)    |    ✔    |     ✔      |
+| `String`      | Preposition (`before`, `after`) |         |     ✔      |
 | `String`      | [Operation](#emit-operation)    |    ✔    |     ✔      |
-| `String`      | Preposition (`before`, `after`) |    ✔    |            |
+| `String`      | Props (period-separated ids)    |    ✔    |     ✔      |
+| `Object`      | Subscription options            |    ✔    |     ✔      |
+| `Function`    | Subscription listener           |         |     ✔      |
 
 All the features together:
 
@@ -53,18 +53,32 @@ emitter.on(
   "before",         // Preposition
   "create",         // Operation
   "my.prop.id",     // Props
-  { x: true }       // Subscription option
+  { x: true }       // Subscription options
   ({ x, y }) => {}, // Subscription listener
 )
 
 // Emitter
-emitter.emit("create", "my.prop.id", { y: true })
+emitter.emit(
+  "create",     // Operation
+  "my.prop.id", // Props
+  { y: true }   // Susbcription options
+)
 
-// Emitter operation shortcut
+// Emitter shortcut
 emitter.create("my.prop.id", { y: true })
 ```
 
-Subscription listeners receive an object with subscription options and an `event` property that has some useful info.
+| Subscription listeners                      |
+| ------------------------------------------- |
+| Can be asynchronous                         |
+| Receive a single object argument            |
+| ↳ Contains subscription options             |
+| ↳ Contains `event` property with extra info |
+
+| Emitters                                           |
+| -------------------------------------------------- |
+| Return a promise                                   |
+| ↳ Resolves once all listeners resolve concurrently |
 
 Now, back to the examples...
 

@@ -68,17 +68,15 @@ emitter.emit(
 emitter.create("my.prop.id", { y: true })
 ```
 
-| Subscription listeners                      |
-| ------------------------------------------- |
-| Can be asynchronous                         |
-| Receive a single object argument            |
-| ↳ Contains subscription options             |
-| ↳ Contains `event` property with extra info |
+| Subscription listeners           |                                             |
+| :------------------------------- | ------------------------------------------- |
+| Can be asynchronous              |                                             |
+| Receive a single object argument | → Contains subscription options             |
+|                                  | ↳ Contains `event` property with extra info |
 
-| Emitters                                           |
-| -------------------------------------------------- |
-| Return a promise                                   |
-| ↳ Resolves once all listeners resolve concurrently |
+| Emitters         |                                                    |
+| :--------------- | -------------------------------------------------- |
+| Return a promise | → Resolves once all listeners resolve concurrently |
 
 Now, back to the examples...
 

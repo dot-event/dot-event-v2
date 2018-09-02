@@ -16,8 +16,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -39,8 +37,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -73,8 +69,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
         opt: true,
       }
@@ -96,8 +90,9 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
+          options: {
+            opt: true,
+          },
         },
         opt: true,
       }
@@ -120,8 +115,6 @@ describe("without props", () => {
           extras: [true],
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -145,8 +138,9 @@ describe("without props", () => {
           extras: [true],
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
+          options: {
+            opt: true,
+          },
         },
         opt: true,
       }
@@ -171,8 +165,9 @@ describe("without props", () => {
           extras: [true],
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
+          options: {
+            opt: true,
+          },
         },
         opt: true,
         opt2: true,
@@ -198,8 +193,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -233,8 +226,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -256,8 +247,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -280,8 +269,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -304,8 +291,6 @@ describe("without props", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 

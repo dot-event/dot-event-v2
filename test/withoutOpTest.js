@@ -35,5 +35,32 @@ describe("without op", () => {
 
       expect(fn.mock.calls.length).toBe(0)
     })
+
+    test("options", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.on(fn)
+
+      await event
+        .emit({ hello: "world" })
+        .catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          keys: new Set(["::"]),
+          op: undefined,
+          options: {
+            hello: "world",
+          },
+          prep: undefined,
+          props: undefined,
+        },
+        hello: "world",
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
   })
 })

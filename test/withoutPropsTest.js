@@ -14,7 +14,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -37,7 +37,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -52,7 +52,7 @@ describe("without props", () => {
       const fn = jest.fn()
 
       event.op("create")
-      event.on("create", fn)
+      event.on("create", "hi", fn)
 
       await event.create("hello").catch(console.error)
 
@@ -71,7 +71,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -94,7 +94,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -118,7 +118,7 @@ describe("without props", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -143,7 +143,7 @@ describe("without props", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -169,7 +169,7 @@ describe("without props", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -196,7 +196,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -206,7 +206,11 @@ describe("without props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:hello"],
+          keys: new Set([
+            "::",
+            ":create:",
+            ":create:hello",
+          ]),
           op: "create",
           prep: undefined,
           props: "hello",
@@ -231,7 +235,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -254,7 +258,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -278,7 +282,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -302,7 +306,7 @@ describe("without props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,

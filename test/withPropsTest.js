@@ -14,7 +14,11 @@ describe("with props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:hello.world"],
+          keys: new Set([
+            "::",
+            ":create:",
+            ":create:hello.world",
+          ]),
           op: "create",
           prep: undefined,
           props: "hello.world",
@@ -37,7 +41,11 @@ describe("with props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:hello.world"],
+          keys: new Set([
+            "::",
+            ":create:",
+            ":create:hello.world",
+          ]),
           op: "create",
           prep: undefined,
           props: "hello.world",
@@ -77,7 +85,11 @@ describe("with props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:hello.world"],
+          keys: new Set([
+            "::",
+            ":create:",
+            ":create:hello.world",
+          ]),
           op: "create",
           prep: undefined,
           props: "hello.world",
@@ -87,7 +99,11 @@ describe("with props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:hello.world.again"],
+          keys: new Set([
+            "::",
+            ":create:",
+            ":create:hello.world.again",
+          ]),
           op: "create",
           prep: undefined,
           props: "hello.world.again",
@@ -111,7 +127,11 @@ describe("with props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:hello"],
+          keys: new Set([
+            "::",
+            ":create:",
+            ":create:hello",
+          ]),
           op: "create",
           prep: undefined,
           props: "hello",

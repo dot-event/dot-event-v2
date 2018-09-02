@@ -2,7 +2,7 @@ import DotEvent from "../dist/core"
 
 describe("without op", () => {
   describe("on", () => {
-    test("two emits", async () => {
+    test.only("two emits", async () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
@@ -14,7 +14,7 @@ describe("without op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":create:"],
+          keys: new Set(["::", ":create:"]),
           op: "create",
           prep: undefined,
           props: undefined,
@@ -24,7 +24,7 @@ describe("without op", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: [":fetch:"],
+          keys: new Set(["::", ":fetch:"]),
           op: "fetch",
           prep: undefined,
           props: undefined,

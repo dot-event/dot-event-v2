@@ -182,7 +182,7 @@ Operations add a nifty shortcut function:
 ```js
 emitter.on("create", () => {})
 emitter.emit("create") // emits
-emitter.create() // or use the shortcut!
+emitter.create() // emit with shortcut
 ```
 
 ## Subscriber shorthand

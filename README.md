@@ -24,11 +24,62 @@ emitter.on(() => {})
 emitter.emit()
 ```
 
+## Cheatsheet
+
+| Terms       | Functions                                                         |
+| ----------- | :---------------------------------------------------------------- |
+| Operations  | `op`                                                              |
+| Emitters    | `emit`, `emitAny`, `emitOn`, `emitAnyOn`                          |
+| Subscribers | `on`, `onAny`, `once`, `onceEmitted`, `onceAny`, `onceAnyEmitted` |
+
+Subscribers and emitters take **one**, **some**, or **none** of these arguments:
+
+| Argument type | Description                                         | Emitter | Subscriber |
+| ------------- | --------------------------------------------------- | ------- | ---------- |
+| `String`      | Preposition (`before`, `after`)                     | ✔       |            |
+| `String`      | Operation (see ["Emit operation"](#emit-operation)) | ✔       | ✔          |
+| `String`      | Props (period-separated ids)                        | ✔       | ✔          |
+| `Function`    | Subscription listener                               |         | ✔          |
+| `Object`      | Subscription options                                | ✔       | ✔          |
+
+All the features together:
+
+```js
+// Define operations
+emitter.op("create")
+
+// Subscriber
+emitter.on(
+  "before",         // Preposition
+  "create",         // Operation
+  "my.prop.id",     // Props
+  { x: true }       // Subscription option
+  ({ x, y }) => {}, // Subscription listener
+)
+
+// Emitter
+emitter.emit("create", "my.prop.id", { y: true })
+
+// Emitter operation shortcut
+emitter.create("my.prop.id", { y: true })
+```
+
+Subscription listeners receive an object with subscription options and an `event` property that has some useful info.
+
+Now, back to the examples...
+
 ## Emit options
 
 ```js
 emitter.on(({ hello }) => {})
 emitter.emit({ hello: "world" })
+```
+
+Define default options from the subscriber as well:
+
+```js
+emitter.on(({ hello }) => {}, { hello: "world" })
+emitter.emit()
 ```
 
 ## Emit once
@@ -73,7 +124,7 @@ Subscribe to any prop change:
 
 ```js
 emitter.onAny(() => {})
-emitter.emit("hello.world")
+emitter.emit("hello")
 ```
 
 Subscribe to any prop change within a prop:
@@ -94,6 +145,8 @@ emitter.onceAnyEmitted("hello", () => {})
 
 ## Emit operation
 
+An "operation" is another way to segment your events.
+
 Define your operation (only do this once):
 
 ```js
@@ -107,7 +160,9 @@ emitter.on("create", () => {})
 emitter.create()
 ```
 
-## Emit before operation with props and options
+## All together
+
+Here we use a [preposition](#emit-before-or-after), [operation](#emit-operation),
 
 Define the `create` operation, then subscribe to `before` `create` `hello.world`:
 
@@ -117,7 +172,8 @@ emitter.on(
   "before",
   "create",
   "hello.world",
-  ({ hi }) => {}
+  ({ hi }) => {},
+  { hola: true }
 )
 emitter.create("hello.world", { hi: true })
 ```
@@ -134,18 +190,3 @@ emitter.on([
   ["after", "create", "hello.world", () => {}],
 ])
 ```
-
-## Universal arguments
-
-Subscriber and emitter functions all take a similar set of arguments.
-
-All arguments are optional and order doesn't matter:
-
-| Type       | Description                                         |
-| ---------- | --------------------------------------------------- |
-| `String`   | Preposition (`before` or `after`)                   |
-| `String`   | Operation (see ["Emit operation"](#emit-operation)) |
-| `String`   | Props (period-separated ids)                        |
-| `Function` | Subscription listener                               |
-
-The subscription receives any extra arguments via `event.extras`.

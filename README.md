@@ -134,3 +134,18 @@ emitter.on([
   ["after", "create", "hello.world", () => {}],
 ])
 ```
+
+## Universal arguments
+
+Subscriber and emitter functions all take a similar set of arguments.
+
+All arguments are optional and order doesn't matter:
+
+| Type       | Description                                         |
+| ---------- | --------------------------------------------------- |
+| `String`   | Preposition (`before` or `after`)                   |
+| `String`   | Operation (see ["Emit operation"](#emit-operation)) |
+| `String`   | Props (period-separated ids)                        |
+| `Function` | Subscription listener                               |
+
+The subscription receives any extra arguments via `event.extras`.

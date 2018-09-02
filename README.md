@@ -68,17 +68,17 @@ emitter.emit(
 emitter.create("my.prop.id", { y: true })
 ```
 
-| Subscription listeners           |                                             |
-| :------------------------------- | ------------------------------------------- |
-| Can be asynchronous              |                                             |
-| Receive a single object argument | ⇒ Contains subscription options             |
-|                                  | ⇒ Contains `event` property with extra info |
+| Subscription listeners           |                                                      |
+| :------------------------------- | ---------------------------------------------------- |
+| Can be asynchronous              | ⇢ Emitters wait for concurrent resolution            |
+| Receive a single object argument | ⇢ Argument contains subscription options             |
+|                                  | ⇢ Argument contains `event` property with extra info |
 
 | Emitters         |                                                    |
 | :--------------- | -------------------------------------------------- |
-| Return a promise | ⇒ Resolves once all listeners resolve concurrently |
+| Return a promise | ⇢ Resolves once all listeners concurrently resolve |
 
-Now, back to the examples...
+There are some features we haven't covered, so keep reading...
 
 ## Emit options
 
@@ -170,24 +170,6 @@ Use the operation:
 ```js
 emitter.on("create", () => {})
 emitter.create()
-```
-
-## All together
-
-Here we use a [preposition](#emit-before-or-after), [operation](#emit-operation),
-
-Define the `create` operation, then subscribe to `before` `create` `hello.world`:
-
-```js
-emitter.op("create")
-emitter.on(
-  "before",
-  "create",
-  "hello.world",
-  ({ hi }) => {},
-  { hola: true }
-)
-emitter.create("hello.world", { hi: true })
 ```
 
 ## Subscriber shorthand

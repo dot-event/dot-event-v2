@@ -65,6 +65,8 @@ emitter.create() // emits
 emitter.emit("create") // also emits, but not as cool
 ```
 
+Shortcut functions take the same arguments as `emit`.
+
 ## Subscription listener argument
 
 Subscription listeners receive a single object argument.

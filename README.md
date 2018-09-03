@@ -26,15 +26,15 @@ emitter.emit()
 
 ## Flexible arguments
 
-Subscribers and emitters take **one**, **some**, or **none** of these arguments:
+Subscribers and emitters take **any combination** of these arguments:
 
-| Argument type | Description                                       | Emitter | Subscriber |
-| :------------ | :------------------------------------------------ | :-----: | :--------: |
-| `String`      | [Props](#props) (period-separated ids)            |    ✔    |     ✔      |
-| `Object`      | [Subscription arguments](#subscription-arguments) |    ✔    |     ✔      |
-| `String`      | [Operation](#operation)                           |    ✔    |     ✔      |
-| `String`      | [Preposition](#preposition) (`before` or `after`) |         |     ✔      |
-| `Function`    | [Subscription listener](#subscription-listener)   |         |     ✔      |
+| Argument type | Description                                                         | Emitter | Subscriber |
+| :------------ | :------------------------------------------------------------------ | :-----: | :--------: |
+| `String`      | [Props](#props) (period-separated ids)                              |    ✔    |     ✔      |
+| `Object`      | [Subscription listener arguments](#subscription-listener-arguments) |    ✔    |     ✔      |
+| `String`      | [Operation](#operation)                                             |    ✔    |     ✔      |
+| `String`      | [Preposition](#preposition) (`before` or `after`)                   |         |     ✔      |
+| `Function`    | [Subscription listener](#subscription-listener)                     |         |     ✔      |
 
 We'll examine each argument type one by one in the sections that follow.
 
@@ -48,7 +48,7 @@ emitter.emit("hello.world") // emits
 emitter.emit() // doesn't emit
 ```
 
-Dot-props come in handy with the `onAny` subscriber, which subscribes to a prop **and** its children:
+Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its children**:
 
 ```js
 emitter.onAny("hello", () => {})
@@ -57,9 +57,9 @@ emitter.emit("hello.world") // emits
 emitter.emit() // doesn't emit
 ```
 
-## Subscription arguments
+## Subscription listener arguments
 
-Add an object to your emitter call to pass it along to the subscriber:
+Add an object to your emitter call to pass it along to the subscription listener:
 
 ```js
 emitter.on(({ hello }) => {})
@@ -163,7 +163,7 @@ emitter.onceAnyEmitted("hello", () => {}) // emits immediately
 
 ## Subscriber shorthand
 
-Build lots of subscribers at once:
+Build lots of subscriptions at once:
 
 ```js
 emitter.on([

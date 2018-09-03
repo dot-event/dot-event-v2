@@ -67,6 +67,25 @@ emitter.emit("create") // also emits, but not as cool
 
 Shortcut functions take the same arguments as `emit`.
 
+## Dot-props
+
+Identify subscriptions by dot-prop string:
+
+```js
+emitter.on("hello.world", () => {})
+emitter.emit("hello.world") // emits
+emitter.emit() // doesn't emit
+```
+
+Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its children**:
+
+```js
+emitter.onAny("hello", () => {})
+emitter.emit("hello") // emits
+emitter.emit("hello.world") // emits
+emitter.emit() // doesn't emit
+```
+
 ## Subscription listener argument
 
 Subscription listeners receive a single object argument.
@@ -90,25 +109,6 @@ The object argument exists purely to pass along information to the listener. It 
 When you pass an object to both subscriber and emitter, they merge together.
 
 The subscription listener argument also contains an `event` property with extra information.
-
-## Dot-props
-
-Identify subscriptions by dot-prop string:
-
-```js
-emitter.on("hello.world", () => {})
-emitter.emit("hello.world") // emits
-emitter.emit() // doesn't emit
-```
-
-Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its children**:
-
-```js
-emitter.onAny("hello", () => {})
-emitter.emit("hello") // emits
-emitter.emit("hello.world") // emits
-emitter.emit() // doesn't emit
-```
 
 ## Prepositions (before or after)
 
@@ -148,9 +148,9 @@ Subscribe to any emit:
 
 ```js
 emitter.onAny(() => {})
-emitter.emit("hello") // emits for any prop
-emitter.emit("hello.world") // emits for any prop
-emitter.create() // emits for any operation
+emitter.emit("hello") // emits
+emitter.emit("hello.world") // emits
+emitter.create() // emits
 ```
 
 When used with a dot-prop, it subscribes to any child prop emit:

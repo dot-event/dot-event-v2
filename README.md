@@ -45,7 +45,7 @@ Emitters and subscribers take **any combination** of these arguments:
 | `String`      | [Preposition](#preposition) (`before` or `after`)                 |         |     ✔      |
 | `Function`    | [Subscription listener](#subscription-listener)                   |         |     ✔      |
 
-We'll examine each argument type one by one in the sections that follow.
+We'll examine each argument type in the following sections.
 
 ## Operation
 

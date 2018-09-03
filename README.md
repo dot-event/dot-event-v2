@@ -67,6 +67,8 @@ emitter.emit("create") // also emits, but not as cool
 
 ## Subscription listener argument
 
+Subscription listeners receive a single object argument.
+
 Add an object to your emitter call to pass it along to the subscription listener:
 
 ```js
@@ -81,7 +83,9 @@ emitter.on(({ hello }) => {}, { hello: "world" })
 emitter.emit()
 ```
 
-When an object is passed to both subscriber and emitter, they merge together for the listener.
+When you pass an object to both subscriber and emitter, they merge together.
+
+The subscription listener argument also contains an `event` property with extra information.
 
 ## Dot-props
 
@@ -112,12 +116,6 @@ emitter.on(() => {})
 emitter.on("after", () => {})
 emitter.emit()
 ```
-
-## Subscription listeners
-
-**Subscription listeners can be asynchronous.** Emitters return a promise that resolves once listeners resolve concurrently.
-
-**Subscription listeners receive a single object argument.** The object contains [subscription arguments](#susbcription-arguments) and an `event` property with extra info.
 
 ## More subscribers
 

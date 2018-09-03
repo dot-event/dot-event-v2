@@ -85,6 +85,8 @@ emitter.on(({ hello }) => {}, { hello: "world" })
 emitter.emit()
 ```
 
+The object argument exists purely to pass along information to the listener. It does not change the signature of the subscribe or emit.
+
 When you pass an object to both subscriber and emitter, they merge together.
 
 The subscription listener argument also contains an `event` property with extra information.
@@ -138,25 +140,31 @@ emitter.emit()
 emitter.onceEmitted(() => {}) // emits immediately
 ```
 
-### Any
+If not previously emitted, the subscriber will still behave like `once` and wait for the next emit.
 
-Subscribe to any prop change:
+### On any
+
+Subscribe to any emit:
 
 ```js
 emitter.onAny(() => {})
-emitter.emit("hello") // emits
-emitter.emit("hello.world") // emits
+emitter.emit("hello") // emits for any prop
+emitter.emit("hello.world") // emits for any prop
+emitter.create() // emits for any operation
 ```
 
-Subscribe to any prop change within a prop:
+When used with a dot-prop, it subscribes to any child prop emit:
 
 ```js
 emitter.onAny("hello", () => {})
+emitter.emit("hello") // emits
 emitter.emit("hello.world") // emits
 emitter.emit() // doesn't emit
 ```
 
 ### Once any
+
+A combination of `once` and `onAny`:
 
 ```js
 emitter.onceAny("hello", () => {})
@@ -166,11 +174,12 @@ emitter.emit("hello.world") // doesn't emit
 
 ### Once any emitted
 
-Subscribe to any prop change within a prop, and fire immediately if previously emitted:
+A combination of `once`, `onAny`, and `onEmitted`:
 
 ```js
 emitter.emit("hello.world")
 emitter.onceAnyEmitted("hello", () => {}) // emits immediately
+emitter.emit("hello.world") // doesn't emit
 ```
 
 ## Subscriber shorthand

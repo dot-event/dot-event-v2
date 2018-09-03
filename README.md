@@ -73,7 +73,7 @@ emitter.on(({ hello }) => {}, { hello: "world" })
 emitter.emit()
 ```
 
-## Operations
+## Operation
 
 An "operation" is a way, other than dot-props, to categorize your events.
 
@@ -92,7 +92,7 @@ emitter.create() // emits
 
 ## Prepositions (before or after)
 
-Subscribe to before or after the main emit:
+Subscribe to before or after the main subscription listener:
 
 ```js
 emitter.on("before", () => {})

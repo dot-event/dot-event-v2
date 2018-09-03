@@ -201,7 +201,6 @@ describe("op", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:hello"]),
           op: "create",
-          prep: undefined,
           props: "hello",
         },
       }

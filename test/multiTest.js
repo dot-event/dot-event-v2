@@ -16,8 +16,6 @@ describe("multi", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:"]),
           op: "create",
-          prep: undefined,
-          props: undefined,
         },
       }
 
@@ -42,7 +40,6 @@ describe("multi", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:hello"]),
           op: "create",
-          prep: undefined,
           props: "hello",
         },
       }
@@ -52,7 +49,6 @@ describe("multi", () => {
           emitter: expect.any(DotEvent),
           keys: new Set([":create:hello.world"]),
           op: "create",
-          prep: undefined,
           props: "hello.world",
         },
       }

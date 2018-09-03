@@ -1,6 +1,6 @@
 # dot-event
 
-Design beautiful, extensible, and asynchronous eventing APIs.
+Build beautiful and extensible eventing APIs.
 
 ![dot event](dot.gif)
 
@@ -24,21 +24,66 @@ emitter.on(() => {})
 emitter.emit()
 ```
 
+Subscription listeners can be asynchronous:
+
+```js
+emitter.on(async () => {})
+await emitter.emit()
+```
+
+The emitter returns a promise that waits for listeners to resolve.
+
 ## Flexible arguments
 
-Subscribers and emitters take **any combination** of these arguments:
+Emitters and subscribers take **any combination** of these arguments:
 
-| Argument type | Description                                                         | Emitter | Subscriber |
-| :------------ | :------------------------------------------------------------------ | :-----: | :--------: |
-| `String`      | [Props](#props) (period-separated ids)                              |    ✔    |     ✔      |
-| `Object`      | [Subscription listener arguments](#subscription-listener-arguments) |    ✔    |     ✔      |
-| `String`      | [Operation](#operation)                                             |    ✔    |     ✔      |
-| `String`      | [Preposition](#preposition) (`before` or `after`)                   |         |     ✔      |
-| `Function`    | [Subscription listener](#subscription-listener)                     |         |     ✔      |
+| Argument type | Description                                                       | Emitter | Subscriber |
+| :------------ | :---------------------------------------------------------------- | :-----: | :--------: |
+| `String`      | [Operation](#operation)                                           |    ✔    |     ✔      |
+| `String`      | [Dot-props](#dot-props) (period-separated ids)                    |    ✔    |     ✔      |
+| `Object`      | [Subscription listener argument](#subscription-listener-argument) |    ✔    |     ✔      |
+| `String`      | [Preposition](#preposition) (`before` or `after`)                 |         |     ✔      |
+| `Function`    | [Subscription listener](#subscription-listener)                   |         |     ✔      |
 
 We'll examine each argument type one by one in the sections that follow.
 
-## Props
+## Operation
+
+An "operation" is a way to categorize your events and build your API.
+
+Define your operation (only need to do this once):
+
+```js
+emitter.op("create")
+```
+
+Defining an operation also creates a nifty shortcut function:
+
+```js
+emitter.on("create", () => {})
+emitter.create() // emits
+emitter.emit("create") // also emits, but not as cool
+```
+
+## Subscription listener argument
+
+Add an object to your emitter call to pass it along to the subscription listener:
+
+```js
+emitter.on(({ hello }) => {})
+emitter.emit({ hello: "world" })
+```
+
+Passing an object into the subscriber has the same effect:
+
+```js
+emitter.on(({ hello }) => {}, { hello: "world" })
+emitter.emit()
+```
+
+When an object is passed to both subscriber and emitter, they merge together for the listener.
+
+## Dot-props
 
 Identify subscriptions by dot-prop string:
 
@@ -55,39 +100,6 @@ emitter.onAny("hello", () => {})
 emitter.emit("hello") // emits
 emitter.emit("hello.world") // emits
 emitter.emit() // doesn't emit
-```
-
-## Subscription listener arguments
-
-Add an object to your emitter call to pass it along to the subscription listener:
-
-```js
-emitter.on(({ hello }) => {})
-emitter.emit({ hello: "world" })
-```
-
-Passing an object into the subscriber has the same effect:
-
-```js
-emitter.on(({ hello }) => {}, { hello: "world" })
-emitter.emit()
-```
-
-## Operation
-
-An "operation" is a way, other than dot-props, to categorize your events.
-
-Define your operation (only need to do this once):
-
-```js
-emitter.op("create")
-```
-
-Most importantly, defining an operation also creates a nifty shortcut function:
-
-```js
-emitter.on("create", () => {})
-emitter.create() // emits
 ```
 
 ## Prepositions (before or after)

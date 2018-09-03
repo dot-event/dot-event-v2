@@ -49,7 +49,7 @@
     "prettier": "^1.14.0",
     "rimraf": "^2.6.2"
   },
-  "main": "dist/index.js",
+  "main": "dist/core.js",
   "scripts": {
     "build": "babel lib --out-dir dist --source-maps",
     "prepublishOnly": "rimraf dist; npm run build",

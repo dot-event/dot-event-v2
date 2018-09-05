@@ -211,14 +211,7 @@ describe("op", () => {
       await event.create().catch(console.error)
       await event.create().catch(console.error)
 
-      const payload = {
-        event: {
-          emitter: expect.any(DotEvent),
-          op: "create",
-        },
-      }
-
-      expect(fn.mock.calls).toEqual([[payload]])
+      expect(fn.mock.calls.length).toBe(1)
     })
 
     test("two emits with promise", async () => {
@@ -231,14 +224,7 @@ describe("op", () => {
       await event.create()
       await event.create()
 
-      const payload = {
-        event: {
-          emitter: expect.any(DotEvent),
-          op: "create",
-        },
-      }
-
-      expect(fn.mock.calls).toEqual([[payload]])
+      expect(fn.mock.calls.length).toBe(1)
     })
 
     test("two emits with promise and callback", async () => {
@@ -252,14 +238,7 @@ describe("op", () => {
       await event.create()
       await event.create()
 
-      const payload = {
-        event: {
-          emitter: expect.any(DotEvent),
-          op: "create",
-        },
-      }
-
-      expect(fn.mock.calls).toEqual([[payload], [payload]])
+      expect(fn.mock.calls.length).toBe(2)
     })
   })
 
@@ -273,14 +252,7 @@ describe("op", () => {
 
       event.onceEmitted("create", fn)
 
-      const payload = {
-        event: {
-          emitter: expect.any(DotEvent),
-          op: "create",
-        },
-      }
-
-      expect(fn.mock.calls).toEqual([[payload]])
+      expect(fn.mock.calls.length).toBe(1)
     })
   })
 })

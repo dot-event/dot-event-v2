@@ -13,7 +13,6 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello.world"]),
           props: "hello.world",
         },
       }
@@ -33,7 +32,6 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello.world"]),
           props: "hello.world",
         },
       }
@@ -69,7 +67,6 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello.world"]),
           props: "hello.world",
         },
       }
@@ -77,7 +74,6 @@ describe("props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello.world.again"]),
           props: "hello.world.again",
         },
       }
@@ -98,7 +94,6 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello"]),
           props: "hello",
         },
       }

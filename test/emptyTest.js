@@ -14,7 +14,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::"]),
         },
       }
 
@@ -46,7 +45,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::"]),
           options: {
             hello: "world",
           },
@@ -71,7 +69,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::"]),
         },
       }
 
@@ -91,7 +88,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello"]),
           props: "hello",
         },
       }
@@ -111,7 +107,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::"]),
         },
       }
 
@@ -128,7 +123,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::"]),
         },
       }
 
@@ -150,7 +144,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::hello"]),
           props: "hello",
         },
       }
@@ -168,7 +161,6 @@ describe("empty", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set(["::"]),
         },
       }
 

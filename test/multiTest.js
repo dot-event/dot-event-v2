@@ -14,7 +14,6 @@ describe("multi", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -38,7 +37,6 @@ describe("multi", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello"]),
           op: "create",
           props: "hello",
         },
@@ -47,7 +45,6 @@ describe("multi", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello.world"]),
           op: "create",
           props: "hello.world",
         },

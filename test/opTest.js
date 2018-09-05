@@ -14,7 +14,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -35,7 +34,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -67,7 +65,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
         opt: true,
@@ -88,7 +85,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
           options: {
             opt: true,
@@ -113,7 +109,6 @@ describe("op", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -136,7 +131,6 @@ describe("op", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: new Set([":create:"]),
           op: "create",
           options: {
             opt: true,
@@ -163,7 +157,6 @@ describe("op", () => {
         event: {
           emitter: expect.any(DotEvent),
           extras: [true],
-          keys: new Set([":create:"]),
           op: "create",
           options: {
             opt: true,
@@ -191,7 +184,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -199,7 +191,6 @@ describe("op", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:hello"]),
           op: "create",
           props: "hello",
         },
@@ -223,7 +214,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -244,7 +234,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -266,7 +255,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }
@@ -288,7 +276,6 @@ describe("op", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          keys: new Set([":create:"]),
           op: "create",
         },
       }

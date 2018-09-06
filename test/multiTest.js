@@ -39,6 +39,7 @@ describe("multi", () => {
           emitter: expect.any(DotEvent),
           op: "create",
           props: "hello",
+          propsArray: ["hello"],
         },
       }
 
@@ -47,6 +48,7 @@ describe("multi", () => {
           emitter: expect.any(DotEvent),
           op: "create",
           props: "hello.world",
+          propsArray: ["hello", "world"],
         },
       }
 

@@ -70,6 +70,7 @@ describe("empty", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello",
+          propsArray: ["hello"],
         },
       }
 
@@ -146,6 +147,7 @@ describe("empty", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello",
+          propsArray: ["hello"],
         },
       }
 
@@ -202,6 +204,7 @@ describe("empty", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello",
+          propsArray: ["hello"],
         },
       }
 

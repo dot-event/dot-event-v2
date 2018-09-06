@@ -193,6 +193,7 @@ describe("op", () => {
           emitter: expect.any(DotEvent),
           op: "create",
           props: "hello",
+          propsArray: ["hello"],
         },
       }
 

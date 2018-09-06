@@ -14,6 +14,7 @@ describe("props", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello.world",
+          propsArray: ["hello", "world"],
         },
       }
 
@@ -33,6 +34,7 @@ describe("props", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello.world",
+          propsArray: ["hello", "world"],
         },
       }
 
@@ -68,6 +70,7 @@ describe("props", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello.world",
+          propsArray: ["hello", "world"],
         },
       }
 
@@ -75,6 +78,7 @@ describe("props", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello.world.again",
+          propsArray: ["hello", "world", "again"],
         },
       }
 
@@ -95,6 +99,7 @@ describe("props", () => {
         event: {
           emitter: expect.any(DotEvent),
           props: "hello",
+          propsArray: ["hello"],
         },
       }
 

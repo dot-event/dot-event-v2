@@ -77,7 +77,7 @@ emitter.emit("hello.world") // emits
 emitter.emit() // doesn't emit
 ```
 
-Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its children**:
+Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its child props**:
 
 ```js
 emitter.onAny("hello", () => {})

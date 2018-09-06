@@ -56,6 +56,63 @@ describe("empty", () => {
     })
   })
 
+  describe("onAnyEmitted", () => {
+    test("one emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      await event.emit("hello.world").catch(console.error)
+      event.onAnyEmitted("hello", fn)
+
+      await event.emit("hello").catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          props: "hello",
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload]])
+    })
+  })
+
+  describe("onEmitted", () => {
+    test("one emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      await event.emit().catch(console.error)
+      event.onEmitted(fn)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+
+    test("two emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      await event.emit().catch(console.error)
+      event.onEmitted(fn)
+
+      await event.emit().catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload]])
+    })
+  })
+
   describe("once", () => {
     test("two emits", async () => {
       const event = new DotEvent()

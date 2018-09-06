@@ -123,31 +123,13 @@ emitter.emit()
 
 ## More subscribers
 
-### Once
-
-```js
-emitter.once(() => {})
-emitter.emit() // emits
-emitter.emit() // doesn't emit
-```
-
-### Once emitted
-
-Fire immediately if previously emitted:
-
-```js
-emitter.emit()
-emitter.onceEmitted(() => {}) // emits immediately
-```
-
-If not previously emitted, the subscriber will still behave like `once` and wait for the next emit.
-
 ### On any
 
 Subscribe to any emit:
 
 ```js
 emitter.onAny(() => {})
+emitter.emit() // emits
 emitter.emit("hello") // emits
 emitter.emit("hello.world") // emits
 emitter.create() // emits
@@ -159,6 +141,45 @@ When used with a dot-prop, it subscribes to any child prop emit:
 emitter.onAny("hello", () => {})
 emitter.emit("hello") // emits
 emitter.emit("hello.world") // emits
+emitter.emit() // doesn't emit
+```
+
+### On emitted
+
+Like `on`, but emit immediately if a previous emit occurred:
+
+```js
+emitter.emit()
+emitter.onEmitted(() => {}) // emits immediately
+emitter.emit() // emits
+```
+
+### On any emitted
+
+Like `onAny`, but emit immediately if a previous emit occurred:
+
+```js
+emitter.emit("hello.world")
+emitter.onAnyEmitted("hello", () => {}) // emits immediately
+emitter.emit("hello.world") // emits
+emitter.emit() // doesn't emit
+```
+
+### Once
+
+```js
+emitter.once(() => {})
+emitter.emit() // emits
+emitter.emit() // doesn't emit
+```
+
+### Once emitted
+
+Like `once`, but emit immediately if a previous emit occurred:
+
+```js
+emitter.emit()
+emitter.onceEmitted(() => {}) // emits immediately
 emitter.emit() // doesn't emit
 ```
 

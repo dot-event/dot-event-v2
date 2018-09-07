@@ -17,18 +17,18 @@ Part of the beauty of the `dot-event` API is that it can shrink down to incredib
 Here we have the simplest possible subscriber and emitter:
 
 ```js
-import Emitter from "dot-event"
-const emitter = new Emitter()
+import Events from "dot-event"
+const events = new Events()
 
-emitter.on(() => {})
-emitter.emit()
+events.on(() => {})
+events.emit()
 ```
 
 Subscription listeners can be asynchronous:
 
 ```js
-emitter.on(async () => {})
-await emitter.emit()
+events.on(async () => {})
+await events.emit()
 ```
 
 The emitter returns a promise that waits for listeners to resolve.
@@ -54,15 +54,15 @@ An "operation" is a way to categorize your events and build your API.
 Define your operation (only need to do this once):
 
 ```js
-emitter.op("create")
+events.op("create")
 ```
 
 Defining an operation also creates a nifty shortcut function:
 
 ```js
-emitter.on("create", () => {})
-emitter.create() // emits
-emitter.emit("create") // also emits, but not as cool
+events.on("create", () => {})
+events.create() // emits
+events.emit("create") // also emits, but not as cool
 ```
 
 Shortcut functions take the same arguments as `emit`.
@@ -72,18 +72,18 @@ Shortcut functions take the same arguments as `emit`.
 Identify subscriptions by dot-prop string:
 
 ```js
-emitter.on("hello.world", () => {})
-emitter.emit("hello.world") // emits
-emitter.emit() // doesn't emit
+events.on("hello.world", () => {})
+events.emit("hello.world") // emits
+events.emit() // doesn't emit
 ```
 
 Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its child props**:
 
 ```js
-emitter.onAny("hello", () => {})
-emitter.emit("hello") // emits
-emitter.emit("hello.world") // emits
-emitter.emit() // doesn't emit
+events.onAny("hello", () => {})
+events.emit("hello") // emits
+events.emit("hello.world") // emits
+events.emit() // doesn't emit
 ```
 
 ## Subscription listener argument
@@ -93,15 +93,15 @@ Subscription listeners receive a single object argument.
 Add an object to your emitter call to pass it along to the subscription listener:
 
 ```js
-emitter.on(({ hello }) => {})
-emitter.emit({ hello: "world" })
+events.on(({ hello }) => {})
+events.emit({ hello: "world" })
 ```
 
 Passing an object into the subscriber has the same effect:
 
 ```js
-emitter.on(({ hello }) => {}, { hello: "world" })
-emitter.emit()
+events.on(({ hello }) => {}, { hello: "world" })
+events.emit()
 ```
 
 The object argument exists purely to pass along information to the listener. It does not change the signature of the subscribe or emit.
@@ -115,10 +115,10 @@ The subscription listener argument also contains an `event` property with extra 
 Subscribe to before or after the main subscription listener:
 
 ```js
-emitter.on("before", () => {})
-emitter.on(() => {})
-emitter.on("after", () => {})
-emitter.emit()
+events.on("before", () => {})
+events.on(() => {})
+events.on("after", () => {})
+events.emit()
 ```
 
 ## More subscribers
@@ -128,20 +128,20 @@ emitter.emit()
 Subscribe to any emit:
 
 ```js
-emitter.onAny(() => {})
-emitter.emit() // emits
-emitter.emit("hello") // emits
-emitter.emit("hello.world") // emits
-emitter.create() // emits
+events.onAny(() => {})
+events.emit() // emits
+events.emit("hello") // emits
+events.emit("hello.world") // emits
+events.create() // emits
 ```
 
 When used with a dot-prop, it subscribes to any child prop emit:
 
 ```js
-emitter.onAny("hello", () => {})
-emitter.emit("hello") // emits
-emitter.emit("hello.world") // emits
-emitter.emit() // doesn't emit
+events.onAny("hello", () => {})
+events.emit("hello") // emits
+events.emit("hello.world") // emits
+events.emit() // doesn't emit
 ```
 
 ### On emitted
@@ -149,9 +149,9 @@ emitter.emit() // doesn't emit
 Like `on`, but emit immediately if a previous emit occurred:
 
 ```js
-emitter.emit()
-emitter.onEmitted(() => {}) // emits immediately
-emitter.emit() // emits
+events.emit()
+events.onEmitted(() => {}) // emits immediately
+events.emit() // emits
 ```
 
 ### On any emitted
@@ -159,18 +159,18 @@ emitter.emit() // emits
 Like `onAny`, but emit immediately if a previous emit occurred:
 
 ```js
-emitter.emit("hello.world")
-emitter.onAnyEmitted("hello", () => {}) // emits immediately
-emitter.emit("hello.world") // emits
-emitter.emit() // doesn't emit
+events.emit("hello.world")
+events.onAnyEmitted("hello", () => {}) // emits immediately
+events.emit("hello.world") // emits
+events.emit() // doesn't emit
 ```
 
 ### Once
 
 ```js
-emitter.once(() => {})
-emitter.emit() // emits
-emitter.emit() // doesn't emit
+events.once(() => {})
+events.emit() // emits
+events.emit() // doesn't emit
 ```
 
 ### Once emitted
@@ -178,9 +178,9 @@ emitter.emit() // doesn't emit
 Like `once`, but emit immediately if a previous emit occurred:
 
 ```js
-emitter.emit()
-emitter.onceEmitted(() => {}) // emits immediately
-emitter.emit() // doesn't emit
+events.emit()
+events.onceEmitted(() => {}) // emits immediately
+events.emit() // doesn't emit
 ```
 
 ### Once any
@@ -188,9 +188,9 @@ emitter.emit() // doesn't emit
 A combination of `once` and `onAny`:
 
 ```js
-emitter.onceAny("hello", () => {})
-emitter.emit("hello.world") // emits
-emitter.emit("hello.world") // doesn't emit
+events.onceAny("hello", () => {})
+events.emit("hello.world") // emits
+events.emit("hello.world") // doesn't emit
 ```
 
 ### Once any emitted
@@ -198,9 +198,9 @@ emitter.emit("hello.world") // doesn't emit
 A combination of `once`, `onAny`, and `onEmitted`:
 
 ```js
-emitter.emit("hello.world")
-emitter.onceAnyEmitted("hello", () => {}) // emits immediately
-emitter.emit("hello.world") // doesn't emit
+events.emit("hello.world")
+events.onceAnyEmitted("hello", () => {}) // emits immediately
+events.emit("hello.world") // doesn't emit
 ```
 
 ## Subscriber shorthand
@@ -208,7 +208,7 @@ emitter.emit("hello.world") // doesn't emit
 Build lots of subscriptions at once:
 
 ```js
-emitter.on([
+events.on([
   [() => {}],
   ["hello.world", () => {}],
   ["create", "hello.world", () => {}],
@@ -220,10 +220,10 @@ emitter.on([
 
 ```js
 // Define operations
-emitter.op("create")
+events.op("create")
 
 // Subscriber
-emitter.on(
+events.on(
   "before",         // Preposition
   "create",         // Operation
   "my.prop.id",     // Props
@@ -232,7 +232,7 @@ emitter.on(
 )
 
 // Emitter
-emitter.create( // Operation
+events.create( // Operation
   "my.prop.id", // Props
   { y: true }   // Susbcription options
 )

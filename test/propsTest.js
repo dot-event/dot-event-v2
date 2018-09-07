@@ -1,60 +1,59 @@
-import DotEvent from "../dist/core"
+import Events from "../dist/core"
 
 describe("props", () => {
   describe("on", () => {
     test("one emit", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.on("hello.world", fn)
+      events.on("hello.world", fn)
 
-      await event.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.world",
           listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
     test("one wildcard emit", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.on("hello.*", fn)
+      events.on("hello.*", fn)
 
-      await event.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.*",
           listenPropsArray: ["hello", "*"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
     test("one wildcard variable emit", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.on("hello.{place}", fn)
+      events.on("hello.{place}", fn)
 
-      await event.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.{place}",
           listenPropsArray: ["hello", "{place}"],
           options: {
@@ -63,6 +62,7 @@ describe("props", () => {
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
         place: "world",
       }
 
@@ -70,34 +70,34 @@ describe("props", () => {
     })
 
     test("two emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.on("hello.world", fn)
+      events.on("hello.world", fn)
 
-      await event.emit("hello.world").catch(console.error)
-      await event.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.world",
           listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload]])
     })
 
     test("no emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.on("hello.world", fn)
+      events.on("hello.world", fn)
 
-      await event.emit("hello").catch(console.error)
+      await events.emit("hello").catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
     })
@@ -105,106 +105,106 @@ describe("props", () => {
 
   describe("onAny", () => {
     test("two emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.onAny("hello.world", fn)
+      events.onAny("hello.world", fn)
 
-      await event.emit("hello").catch(console.error)
-      await event.emit("hello.world").catch(console.error)
-      await event
+      await events.emit("hello").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
+      await events
         .emit("hello.world.again")
         .catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.world",
           listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
       }
 
       const payload2 = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.world",
           listenPropsArray: ["hello", "world"],
           props: "hello.world.again",
           propsArray: ["hello", "world", "again"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
 
     test("two wildcard emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.onAny("*", fn)
+      events.onAny("*", fn)
 
-      await event.emit().catch(console.error)
-      await event.emit("hello").catch(console.error)
-      await event.emit("hello.world").catch(console.error)
+      await events.emit().catch(console.error)
+      await events.emit("hello").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "*",
           listenPropsArray: ["*"],
           props: "hello",
           propsArray: ["hello"],
         },
+        events: expect.any(Events),
       }
 
       const payload2 = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "*",
           listenPropsArray: ["*"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
 
     test("two wildcard variable emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.onAny("hello.{place}", fn)
+      events.onAny("hello.{place}", fn)
 
-      await event.emit("hello").catch(console.error)
-      await event.emit("hello.world").catch(console.error)
-      await event
+      await events.emit("hello").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
+      await events
         .emit("hello.world.peace")
         .catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.{place}",
           listenPropsArray: ["hello", "{place}"],
           options: { place: "world" },
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+        events: expect.any(Events),
         place: "world",
       }
 
       const payload2 = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.{place}",
           listenPropsArray: ["hello", "{place}"],
           options: { place: "world" },
           props: "hello.world.peace",
           propsArray: ["hello", "world", "peace"],
         },
+        events: expect.any(Events),
         place: "world",
       }
 
@@ -214,40 +214,40 @@ describe("props", () => {
 
   describe("onceAnyEmitted", () => {
     test("one emit", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      await event.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
-      event.onceAnyEmitted("hello", fn)
+      events.onceAnyEmitted("hello", fn)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello",
           listenPropsArray: ["hello"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
     test("one emit wildcard", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      await event
+      await events
         .emit("hello.world.peace")
         .catch(console.error)
 
-      event.onceAnyEmitted("hello.*", fn)
+      events.onceAnyEmitted("hello.*", fn)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           listenProps: "hello.*",
           listenPropsArray: ["hello", "*"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload]])

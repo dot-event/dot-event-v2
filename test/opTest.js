@@ -1,73 +1,73 @@
-import DotEvent from "../dist/core"
+import Events from "../dist/core"
 
 describe("op", () => {
   describe("on", () => {
     test("one emit", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn)
+      events.op("create")
+      events.on("create", fn)
 
-      await event.create().catch(console.error)
+      await events.create().catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           op: "create",
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
     test("two emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn)
+      events.op("create")
+      events.on("create", fn)
 
-      await event.create().catch(console.error)
-      await event.create().catch(console.error)
+      await events.create().catch(console.error)
+      await events.create().catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           op: "create",
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload]])
     })
 
     test("no emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", "hi", fn)
+      events.op("create")
+      events.on("create", "hi", fn)
 
-      await event.create("hello").catch(console.error)
+      await events.create("hello").catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
     })
 
     test("subscriber options", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn, { opt: true })
+      events.op("create")
+      events.on("create", fn, { opt: true })
 
-      await event.create().catch(console.error)
+      await events.create().catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           op: "create",
           options: { opt: true },
         },
+        events: expect.any(Events),
         opt: true,
       }
 
@@ -75,22 +75,24 @@ describe("op", () => {
     })
 
     test("emit options", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn)
+      events.op("create")
+      events.on("create", fn)
 
-      await event.create({ opt: true }).catch(console.error)
+      await events
+        .create({ opt: true })
+        .catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           op: "create",
           options: {
             opt: true,
           },
         },
+        events: expect.any(Events),
         opt: true,
       }
 
@@ -98,45 +100,45 @@ describe("op", () => {
     })
 
     test("emit extras", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn)
+      events.op("create")
+      events.on("create", fn)
 
-      await event.create(true).catch(console.error)
+      await events.create(true).catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           extras: [true],
           op: "create",
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
     test("emit extras and options", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn)
+      events.op("create")
+      events.on("create", fn)
 
-      await event
+      await events
         .create(true, { opt: true })
         .catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           extras: [true],
           op: "create",
           options: {
             opt: true,
           },
         },
+        events: expect.any(Events),
         opt: true,
       }
 
@@ -144,19 +146,18 @@ describe("op", () => {
     })
 
     test("emit extras and options with subscriber options", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.on("create", fn, { opt2: true })
+      events.op("create")
+      events.on("create", fn, { opt2: true })
 
-      await event
+      await events
         .create(true, { opt: true })
         .catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           extras: [true],
           op: "create",
           options: {
@@ -164,6 +165,7 @@ describe("op", () => {
             opt2: true,
           },
         },
+        events: expect.any(Events),
         opt: true,
         opt2: true,
       }
@@ -174,29 +176,29 @@ describe("op", () => {
 
   describe("onAny", () => {
     test("two emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.onAny("create", fn)
+      events.op("create")
+      events.onAny("create", fn)
 
-      await event.create().catch(console.error)
-      await event.create("hello").catch(console.error)
+      await events.create().catch(console.error)
+      await events.create("hello").catch(console.error)
 
       const payload = {
         event: {
-          emitter: expect.any(DotEvent),
           op: "create",
         },
+        events: expect.any(Events),
       }
 
       const payload2 = {
         event: {
-          emitter: expect.any(DotEvent),
           op: "create",
           props: "hello",
           propsArray: ["hello"],
         },
+        events: expect.any(Events),
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -205,41 +207,41 @@ describe("op", () => {
 
   describe("once", () => {
     test("two emits", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.once("create", fn)
+      events.op("create")
+      events.once("create", fn)
 
-      await event.create().catch(console.error)
-      await event.create().catch(console.error)
+      await events.create().catch(console.error)
+      await events.create().catch(console.error)
 
       expect(fn.mock.calls.length).toBe(1)
     })
 
     test("two emits with promise", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.once("create").then(fn)
+      events.op("create")
+      events.once("create").then(fn)
 
-      await event.create()
-      await event.create()
+      await events.create()
+      await events.create()
 
       expect(fn.mock.calls.length).toBe(1)
     })
 
     test("two emits with promise and callback", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      event.once("create", fn).then(fn)
+      events.op("create")
+      events.once("create", fn).then(fn)
 
-      await event.create()
-      await event.create()
-      await event.create()
+      await events.create()
+      await events.create()
+      await events.create()
 
       expect(fn.mock.calls.length).toBe(2)
     })
@@ -247,13 +249,13 @@ describe("op", () => {
 
   describe("onceEmitted", () => {
     test("one emit", async () => {
-      const event = new DotEvent()
+      const events = new Events()
       const fn = jest.fn()
 
-      event.op("create")
-      await event.create().catch(console.error)
+      events.op("create")
+      await events.create().catch(console.error)
 
-      event.onceEmitted("create", fn)
+      events.onceEmitted("create", fn)
 
       expect(fn.mock.calls.length).toBe(1)
     })

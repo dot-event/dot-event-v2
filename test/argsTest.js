@@ -1,58 +1,58 @@
-import DotEvent from "../dist/core"
+import Events from "../dist/core"
 import { initState } from "../dist/args"
 
 describe("args", () => {
   test("function", () => {
-    const emitter = new DotEvent()
+    const events = new Events()
     const { fn } = initState({
       args: [() => {}],
-      emitter,
+      events,
     })
     expect(fn).toEqual(expect.any(Function))
   })
 
   test("options", () => {
-    const emitter = new DotEvent()
+    const events = new Events()
     const { options } = initState({
       args: [{ hello: "world" }],
-      emitter,
+      events,
     })
     expect(options).toEqual({ hello: "world" })
   })
 
   test("before/after", () => {
-    const emitter = new DotEvent()
+    const events = new Events()
     const { prep } = initState({
       args: ["before"],
-      emitter,
+      events,
     })
     expect(prep).toBe("before")
   })
 
   test("op", () => {
-    const emitter = new DotEvent()
-    emitter.op("create")
+    const events = new Events()
+    events.op("create")
     const { op } = initState({
       args: ["create"],
-      emitter,
+      events,
     })
     expect(op).toBe("create")
   })
 
   test("props", () => {
-    const emitter = new DotEvent()
+    const events = new Events()
     const { props } = initState({
       args: ["hello"],
-      emitter,
+      events,
     })
     expect(props).toBe("hello")
   })
 
   test("extras", () => {
-    const emitter = new DotEvent()
+    const events = new Events()
     const { extras } = initState({
       args: [true, false, 123, null, []],
-      emitter,
+      events,
     })
     expect(extras).toEqual([true, false, 123, null, []])
   })

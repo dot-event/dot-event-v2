@@ -24,7 +24,7 @@ describe("prep", () => {
       let after, before, during
 
       event.on("before", async () => {
-        await timer(1)
+        await timer(2)
         before = new Date().getTime()
       })
 
@@ -34,7 +34,7 @@ describe("prep", () => {
       })
 
       event.on("after", async () => {
-        await timer(1)
+        await timer(0)
         after = new Date().getTime()
       })
 

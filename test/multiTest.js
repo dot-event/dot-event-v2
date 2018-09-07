@@ -21,7 +21,7 @@ describe("multi", () => {
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
-    test.only("two emit", async () => {
+    test("two emit", async () => {
       const event = new DotEvent()
       const fn = jest.fn()
 

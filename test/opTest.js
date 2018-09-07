@@ -66,6 +66,7 @@ describe("op", () => {
         event: {
           emitter: expect.any(DotEvent),
           op: "create",
+          options: { opt: true },
         },
         opt: true,
       }
@@ -160,6 +161,7 @@ describe("op", () => {
           op: "create",
           options: {
             opt: true,
+            opt2: true,
           },
         },
         opt: true,

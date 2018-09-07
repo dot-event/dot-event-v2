@@ -13,6 +13,8 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello.world",
+          listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
@@ -32,9 +34,36 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello.*",
+          listenPropsArray: ["hello", "*"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+
+    test("one wildcard variable emit", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.on("hello.{place}", fn)
+
+      await event.emit("hello.world").catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          listenProps: "hello.{place}",
+          listenPropsArray: ["hello", "{place}"],
+          options: {
+            place: "world",
+          },
+          props: "hello.world",
+          propsArray: ["hello", "world"],
+        },
+        place: "world",
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -52,6 +81,8 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello.world",
+          listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
@@ -88,6 +119,8 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello.world",
+          listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
@@ -96,6 +129,8 @@ describe("props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello.world",
+          listenPropsArray: ["hello", "world"],
           props: "hello.world.again",
           propsArray: ["hello", "world", "again"],
         },
@@ -117,6 +152,8 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "*",
+          listenPropsArray: ["*"],
           props: "hello",
           propsArray: ["hello"],
         },
@@ -125,9 +162,50 @@ describe("props", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "*",
+          listenPropsArray: ["*"],
           props: "hello.world",
           propsArray: ["hello", "world"],
         },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload2]])
+    })
+
+    test("two wildcard variable emits", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      event.onAny("hello.{place}", fn)
+
+      await event.emit("hello").catch(console.error)
+      await event.emit("hello.world").catch(console.error)
+      await event
+        .emit("hello.world.peace")
+        .catch(console.error)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          listenProps: "hello.{place}",
+          listenPropsArray: ["hello", "{place}"],
+          options: { place: "world" },
+          props: "hello.world",
+          propsArray: ["hello", "world"],
+        },
+        place: "world",
+      }
+
+      const payload2 = {
+        event: {
+          emitter: expect.any(DotEvent),
+          listenProps: "hello.{place}",
+          listenPropsArray: ["hello", "{place}"],
+          options: { place: "world" },
+          props: "hello.world.peace",
+          propsArray: ["hello", "world", "peace"],
+        },
+        place: "world",
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -146,8 +224,29 @@ describe("props", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
-          props: "hello",
-          propsArray: ["hello"],
+          listenProps: "hello",
+          listenPropsArray: ["hello"],
+        },
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+
+    test("one emit wildcard", async () => {
+      const event = new DotEvent()
+      const fn = jest.fn()
+
+      await event
+        .emit("hello.world.peace")
+        .catch(console.error)
+
+      event.onceAnyEmitted("hello.*", fn)
+
+      const payload = {
+        event: {
+          emitter: expect.any(DotEvent),
+          listenProps: "hello.*",
+          listenPropsArray: ["hello", "*"],
         },
       }
 

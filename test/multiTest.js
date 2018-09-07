@@ -21,7 +21,7 @@ describe("multi", () => {
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
-    test("two emit", async () => {
+    test.only("two emit", async () => {
       const event = new DotEvent()
       const fn = jest.fn()
 
@@ -37,6 +37,8 @@ describe("multi", () => {
       const payload = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello",
+          listenPropsArray: ["hello"],
           op: "create",
           props: "hello",
           propsArray: ["hello"],
@@ -46,6 +48,8 @@ describe("multi", () => {
       const payload2 = {
         event: {
           emitter: expect.any(DotEvent),
+          listenProps: "hello.world",
+          listenPropsArray: ["hello", "world"],
           op: "create",
           props: "hello.world",
           propsArray: ["hello", "world"],

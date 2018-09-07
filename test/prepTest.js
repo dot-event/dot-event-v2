@@ -4,7 +4,7 @@ describe("prep", () => {
   describe("on", () => {
     test("synchronous emit once", () => {
       const events = new Events()
-      let order = []
+      const order = []
 
       events.opSync("get")
 

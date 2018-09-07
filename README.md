@@ -49,7 +49,7 @@ We'll examine each argument type in the following sections.
 
 ## Operation
 
-An "operation" is a way to categorize your events and build your API.
+An "operation" is a way to categorize events and build your API.
 
 Define your operation (only need to do this once):
 

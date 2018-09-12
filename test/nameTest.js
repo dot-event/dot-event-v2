@@ -12,7 +12,9 @@ describe("name", () => {
       await events.emit().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          signal: {},
+        },
         store: expect.any(Events),
       }
 

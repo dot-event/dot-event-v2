@@ -12,7 +12,9 @@ describe("empty", () => {
       await events.emit().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          signal: {},
+        },
         events: expect.any(Events),
       }
 
@@ -46,6 +48,7 @@ describe("empty", () => {
           options: {
             hello: "world",
           },
+          signal: {},
         },
         events: expect.any(Events),
         hello: "world",
@@ -102,7 +105,14 @@ describe("empty", () => {
         events: expect.any(Events),
       }
 
-      expect(fn.mock.calls).toEqual([[payload], [payload]])
+      const payload2 = {
+        event: {
+          signal: {},
+        },
+        events: expect.any(Events),
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
   })
 
@@ -117,7 +127,9 @@ describe("empty", () => {
       await events.emit().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          signal: {},
+        },
         events: expect.any(Events),
       }
 
@@ -138,6 +150,7 @@ describe("empty", () => {
         event: {
           props: "hello",
           propsArray: ["hello"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -155,7 +168,9 @@ describe("empty", () => {
       await events.emit().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          signal: {},
+        },
         events: expect.any(Events),
       }
 
@@ -193,6 +208,7 @@ describe("empty", () => {
         event: {
           props: "hello",
           propsArray: ["hello"],
+          signal: {},
         },
         events: expect.any(Events),
       }

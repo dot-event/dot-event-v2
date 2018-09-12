@@ -16,6 +16,7 @@ describe("props", () => {
           listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -37,6 +38,7 @@ describe("props", () => {
           listenPropsArray: ["hello", "*"],
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -61,6 +63,7 @@ describe("props", () => {
           },
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
         place: "world",
@@ -84,6 +87,7 @@ describe("props", () => {
           listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -122,6 +126,7 @@ describe("props", () => {
           listenPropsArray: ["hello", "world"],
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -132,6 +137,7 @@ describe("props", () => {
           listenPropsArray: ["hello", "world"],
           props: "hello.world.again",
           propsArray: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -155,6 +161,7 @@ describe("props", () => {
           listenPropsArray: ["*"],
           props: "hello",
           propsArray: ["hello"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -165,6 +172,7 @@ describe("props", () => {
           listenPropsArray: ["*"],
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -191,6 +199,7 @@ describe("props", () => {
           options: { place: "world" },
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
         place: "world",
@@ -203,6 +212,7 @@ describe("props", () => {
           options: { place: "world" },
           props: "hello.world.peace",
           propsArray: ["hello", "world", "peace"],
+          signal: {},
         },
         events: expect.any(Events),
         place: "world",

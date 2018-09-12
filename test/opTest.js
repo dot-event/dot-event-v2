@@ -14,6 +14,7 @@ describe("op", () => {
       const payload = {
         event: {
           op: "create",
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -34,6 +35,7 @@ describe("op", () => {
       const payload = {
         event: {
           op: "create",
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -66,6 +68,7 @@ describe("op", () => {
         event: {
           op: "create",
           options: { opt: true },
+          signal: {},
         },
         events: expect.any(Events),
         opt: true,
@@ -91,6 +94,7 @@ describe("op", () => {
           options: {
             opt: true,
           },
+          signal: {},
         },
         events: expect.any(Events),
         opt: true,
@@ -112,6 +116,7 @@ describe("op", () => {
         event: {
           extras: [true],
           op: "create",
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -137,6 +142,7 @@ describe("op", () => {
           options: {
             opt: true,
           },
+          signal: {},
         },
         events: expect.any(Events),
         opt: true,
@@ -164,6 +170,7 @@ describe("op", () => {
             opt: true,
             opt2: true,
           },
+          signal: {},
         },
         events: expect.any(Events),
         opt: true,
@@ -188,6 +195,7 @@ describe("op", () => {
       const payload = {
         event: {
           op: "create",
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -197,6 +205,7 @@ describe("op", () => {
           op: "create",
           props: "hello",
           propsArray: ["hello"],
+          signal: {},
         },
         events: expect.any(Events),
       }

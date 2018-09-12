@@ -14,6 +14,7 @@ describe("multi", () => {
       const payload = {
         event: {
           op: "create",
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -44,6 +45,7 @@ describe("multi", () => {
           op: "create",
           props: "hello",
           propsArray: ["hello"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -55,6 +57,7 @@ describe("multi", () => {
           op: "create",
           props: "hello.world",
           propsArray: ["hello", "world"],
+          signal: {},
         },
         events: expect.any(Events),
       }

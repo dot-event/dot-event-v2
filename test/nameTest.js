@@ -6,7 +6,7 @@ describe("name", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.name("store")
+      events.setName("store")
       events.on(fn)
 
       await events.emit().catch(console.error)

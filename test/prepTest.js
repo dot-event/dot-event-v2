@@ -6,7 +6,7 @@ describe("prep", () => {
       const events = new Events()
       const order = []
 
-      events.opSync("get")
+      events.setOpsSync("get")
 
       events.on("before", "get", () => order.push("a"))
       events.on("get", () => order.push("b"))

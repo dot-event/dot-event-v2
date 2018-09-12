@@ -6,7 +6,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn)
 
       await events.create().catch(console.error)
@@ -25,7 +25,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn)
 
       await events.create().catch(console.error)
@@ -45,7 +45,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", "hi", fn)
 
       await events.create("hello").catch(console.error)
@@ -57,7 +57,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn, { opt: true })
 
       await events.create().catch(console.error)
@@ -78,7 +78,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn)
 
       await events
@@ -103,7 +103,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn)
 
       await events.create(true).catch(console.error)
@@ -123,7 +123,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn)
 
       await events
@@ -149,7 +149,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on("create", fn, { opt2: true })
 
       await events
@@ -179,7 +179,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.onAny("create", fn)
 
       await events.create().catch(console.error)
@@ -210,7 +210,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.once("create", fn)
 
       await events.create().catch(console.error)
@@ -223,7 +223,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.once("create").then(fn)
 
       await events.create()
@@ -236,7 +236,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.once("create", fn).then(fn)
 
       await events.create()
@@ -252,7 +252,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       await events.create().catch(console.error)
 
       events.onceEmitted("create", fn)

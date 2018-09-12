@@ -31,7 +31,7 @@ describe("args", () => {
 
   test("op", () => {
     const events = new Events()
-    events.op("create")
+    events.setOps("create")
     const { op } = initState({
       args: ["create"],
       events,

@@ -54,7 +54,7 @@ An "operation" is a way to categorize events and build your API.
 Define your operation (only need to do this once):
 
 ```js
-events.op("create")
+events.setOps("create")
 ```
 
 Defining an operation also creates a nifty shortcut function:
@@ -220,7 +220,7 @@ events.on([
 
 ```js
 // Define operations
-events.op("create")
+events.setOps("create")
 
 // Subscriber
 events.on(

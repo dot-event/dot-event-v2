@@ -6,7 +6,7 @@ describe("multi", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on([["create", fn]])
 
       await events.create().catch(console.error)
@@ -25,7 +25,7 @@ describe("multi", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       events.on([
         ["create", "hello", fn],
         ["create", "hello.world", fn],
@@ -66,7 +66,7 @@ describe("multi", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.op("create")
+      events.setOps("create")
       const off = events.on([
         ["create", fn],
         ["create", "hello", fn],

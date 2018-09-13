@@ -36,18 +36,16 @@ describe("empty", () => {
     test("options", async () => {
       const events = new Events()
       const fn = jest.fn()
+      const option = { hello: "world" }
 
       events.on(fn)
 
-      await events
-        .emit({ hello: "world" })
-        .catch(console.error)
+      await events.emit(option).catch(console.error)
 
       const payload = {
         event: {
-          options: {
-            hello: "world",
-          },
+          extras: [option],
+          options: option,
           signal: {},
         },
         events: expect.any(Events),

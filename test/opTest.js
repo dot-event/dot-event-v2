@@ -58,16 +58,18 @@ describe("op", () => {
     test("subscriber options", async () => {
       const events = new Events()
       const fn = jest.fn()
+      const option = { opt: true }
 
       events.setOps("create")
-      events.on("create", fn, { opt: true })
+      events.on("create", fn, option)
 
       await events.create().catch(console.error)
 
       const payload = {
         event: {
+          extras: [option],
           op: "create",
-          options: { opt: true },
+          options: option,
           signal: {},
         },
         events: expect.any(Events),
@@ -80,20 +82,18 @@ describe("op", () => {
     test("emit options", async () => {
       const events = new Events()
       const fn = jest.fn()
+      const option = { opt: true }
 
       events.setOps("create")
       events.on("create", fn)
 
-      await events
-        .create({ opt: true })
-        .catch(console.error)
+      await events.create(option).catch(console.error)
 
       const payload = {
         event: {
+          extras: [option],
           op: "create",
-          options: {
-            opt: true,
-          },
+          options: option,
           signal: {},
         },
         events: expect.any(Events),
@@ -137,7 +137,7 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [true],
+          extras: [true, { opt: true }],
           op: "create",
           options: {
             opt: true,
@@ -164,7 +164,7 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [true],
+          extras: [true, { opt: true }, { opt2: true }],
           op: "create",
           options: {
             opt: true,

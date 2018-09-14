@@ -50,10 +50,10 @@ describe("args", () => {
 
   test("extras", () => {
     const events = new Events()
-    const { extras } = initState({
+    const { args } = initState({
       args: [true, false, 123, null, []],
       events,
     })
-    expect(extras).toEqual([true, false, 123, null, []])
+    expect(args).toEqual([true, false, 123, null, []])
   })
 })

@@ -67,7 +67,7 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [option],
+          listenArgs: [option],
           op: "create",
           options: option,
           signal: {},
@@ -91,7 +91,7 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [option],
+          args: [option],
           op: "create",
           options: option,
           signal: {},
@@ -114,7 +114,7 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [true],
+          args: [true],
           op: "create",
           signal: {},
         },
@@ -137,7 +137,7 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [true, { opt: true }],
+          args: [true, { opt: true }],
           op: "create",
           options: {
             opt: true,
@@ -164,7 +164,8 @@ describe("op", () => {
 
       const payload = {
         event: {
-          extras: [true, { opt: true }, { opt2: true }],
+          args: [true, { opt: true }],
+          listenArgs: [{ opt2: true }],
           op: "create",
           options: {
             opt: true,
@@ -203,8 +204,7 @@ describe("op", () => {
       const payload2 = {
         event: {
           op: "create",
-          props: "hello",
-          propsArray: ["hello"],
+          props: ["hello"],
           signal: {},
         },
         events: expect.any(Events),

@@ -12,10 +12,8 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.world",
-          listenPropsArray: ["hello", "world"],
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          listenProps: ["hello", "world"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -34,10 +32,8 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.*",
-          listenPropsArray: ["hello", "*"],
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          listenProps: ["hello", "*"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -56,13 +52,11 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.{place}",
-          listenPropsArray: ["hello", "{place}"],
+          listenProps: ["hello", "{place}"],
           options: {
             place: "world",
           },
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -83,10 +77,8 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.world",
-          listenPropsArray: ["hello", "world"],
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          listenProps: ["hello", "world"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -122,10 +114,8 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.world",
-          listenPropsArray: ["hello", "world"],
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          listenProps: ["hello", "world"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -133,10 +123,8 @@ describe("props", () => {
 
       const payload2 = {
         event: {
-          listenProps: "hello.world",
-          listenPropsArray: ["hello", "world"],
-          props: "hello.world.again",
-          propsArray: ["hello", "world", "again"],
+          listenProps: ["hello", "world"],
+          props: ["hello", "world", "again"],
           signal: {},
         },
         events: expect.any(Events),
@@ -157,10 +145,8 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "*",
-          listenPropsArray: ["*"],
-          props: "hello",
-          propsArray: ["hello"],
+          listenProps: ["*"],
+          props: ["hello"],
           signal: {},
         },
         events: expect.any(Events),
@@ -168,10 +154,8 @@ describe("props", () => {
 
       const payload2 = {
         event: {
-          listenProps: "*",
-          listenPropsArray: ["*"],
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          listenProps: ["*"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -194,11 +178,9 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.{place}",
-          listenPropsArray: ["hello", "{place}"],
+          listenProps: ["hello", "{place}"],
           options: { place: "world" },
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
@@ -207,11 +189,9 @@ describe("props", () => {
 
       const payload2 = {
         event: {
-          listenProps: "hello.{place}",
-          listenPropsArray: ["hello", "{place}"],
+          listenProps: ["hello", "{place}"],
           options: { place: "world" },
-          props: "hello.world.peace",
-          propsArray: ["hello", "world", "peace"],
+          props: ["hello", "world", "peace"],
           signal: {},
         },
         events: expect.any(Events),
@@ -233,8 +213,7 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello",
-          listenPropsArray: ["hello"],
+          listenProps: ["hello"],
         },
         events: expect.any(Events),
       }
@@ -254,8 +233,7 @@ describe("props", () => {
 
       const payload = {
         event: {
-          listenProps: "hello.*",
-          listenPropsArray: ["hello", "*"],
+          listenProps: ["hello", "*"],
         },
         events: expect.any(Events),
       }

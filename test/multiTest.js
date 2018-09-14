@@ -40,11 +40,9 @@ describe("multi", () => {
 
       const payload = {
         event: {
-          listenProps: "hello",
-          listenPropsArray: ["hello"],
+          listenProps: ["hello"],
           op: "create",
-          props: "hello",
-          propsArray: ["hello"],
+          props: ["hello"],
           signal: {},
         },
         events: expect.any(Events),
@@ -52,11 +50,9 @@ describe("multi", () => {
 
       const payload2 = {
         event: {
-          listenProps: "hello.world",
-          listenPropsArray: ["hello", "world"],
+          listenProps: ["hello", "world"],
           op: "create",
-          props: "hello.world",
-          propsArray: ["hello", "world"],
+          props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),

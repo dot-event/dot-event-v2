@@ -44,7 +44,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
-          extras: [option],
+          args: [option],
           options: option,
           signal: {},
         },
@@ -146,8 +146,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
-          props: "hello",
-          propsArray: ["hello"],
+          props: ["hello"],
           signal: {},
         },
         events: expect.any(Events),
@@ -204,8 +203,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
-          props: "hello",
-          propsArray: ["hello"],
+          props: ["hello"],
           signal: {},
         },
         events: expect.any(Events),

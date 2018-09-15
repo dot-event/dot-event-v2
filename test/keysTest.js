@@ -13,7 +13,7 @@ describe("keys", () => {
     test("emit prop", () => {
       expect(
         onKeys({
-          state: { props: "hello", propsArray: ["hello"] },
+          state: { props: ["hello"] },
         })
       ).toEqual(["::hello", "::*"])
     })
@@ -22,8 +22,7 @@ describe("keys", () => {
       expect(
         onKeys({
           state: {
-            props: "hello",
-            propsArray: ["hello"],
+            props: ["hello"],
           },
           subscribe: true,
         })
@@ -44,8 +43,7 @@ describe("keys", () => {
       expect(
         anyKeys({
           state: {
-            props: "hello.world",
-            propsArray: ["hello", "world"],
+            props: ["hello", "world"],
           },
         })
       ).toEqual([
@@ -61,8 +59,7 @@ describe("keys", () => {
       expect(
         anyKeys({
           state: {
-            props: "hello.*",
-            propsArray: ["hello", "*"],
+            props: ["hello", "*"],
           },
         })
       ).toEqual(["::hello.*", "::", "::hello", "::*"])
@@ -72,8 +69,7 @@ describe("keys", () => {
       expect(
         anyKeys({
           state: {
-            props: "hello.world",
-            propsArray: ["hello", "world"],
+            props: ["hello", "world"],
           },
           subscribe: true,
         })

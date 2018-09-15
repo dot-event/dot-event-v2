@@ -45,15 +45,15 @@ describe("args", () => {
       args: ["hello"],
       events,
     })
-    expect(props).toBe("hello")
+    expect(props).toEqual(["hello"])
   })
 
   test("extras", () => {
     const events = new Events()
     const { args } = initState({
-      args: [true, false, 123, null, []],
+      args: [true, false, 123, null],
       events,
     })
-    expect(args).toEqual([true, false, 123, null, []])
+    expect(args).toEqual([true, false, 123, null])
   })
 })

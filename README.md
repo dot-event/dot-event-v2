@@ -33,40 +33,6 @@ await events.emit()
 
 The emitter returns a promise that waits for listeners to resolve.
 
-## Flexible arguments
-
-Emitters and subscribers take **any combination** of these arguments:
-
-| Argument type | Description                                                       | Emitter | Subscriber |
-| :------------ | :---------------------------------------------------------------- | :-----: | :--------: |
-| `String`      | [Operation](#operation)                                           |    ✔    |     ✔      |
-| `String`      | [Dot-props](#dot-props) (period-separated ids)                    |    ✔    |     ✔      |
-| `Object`      | [Subscription listener argument](#subscription-listener-argument) |    ✔    |     ✔      |
-| `String`      | [Preposition](#preposition) (`before` or `after`)                 |         |     ✔      |
-| `Function`    | [Subscription listener](#subscription-listener)                   |         |     ✔      |
-
-We'll examine each argument type in the following sections.
-
-## Operation
-
-An "operation" is a way to categorize events and build your API.
-
-Define your operation (only need to do this once):
-
-```js
-events.setOps("create")
-```
-
-Defining an operation also creates a nifty shortcut function:
-
-```js
-events.on("create", () => {})
-events.create() // emits
-events.emit("create") // also emits, but not as cool
-```
-
-Shortcut functions take the same arguments as `emit`.
-
 ## Dot-props
 
 Identify subscriptions by dot-prop string:
@@ -90,34 +56,48 @@ events.emit() // doesn't emit
 
 Subscription listeners receive a single object argument.
 
-Add an object to your emitter call to pass it along to the subscription listener:
+To add to that object, use the `withOptions` function on emit:
 
 ```js
 events.on(({ hello }) => {})
-events.emit({ hello: "world" })
+events.withOptions({ hello: "world" }).emit()
 ```
 
-Passing an object into the subscriber has the same effect:
+Or use `withOptions` on the subscriber:
 
 ```js
-events.on(({ hello }) => {}, { hello: "world" })
+events.withOptions({ hello: "world" }).on(({ hello }) => {})
 events.emit()
 ```
 
-The object argument exists purely to pass along information to the listener. It does not change the signature of the subscribe or emit.
+The listener argument also contains an `event` property with extra information, such as the emitter arguments:
 
-When you pass an object to both subscriber and emitter, they merge together.
+```js
+events.on(({ event }) => {
+  event.args // [123, true]
+})
+events.emit(123, true)
+```
 
-The subscription listener argument also contains an `event` property with extra information.
+## Operation
+
+An "operation" is a way to namespace your events and make a custom emitter function:
+
+```js
+events.withOp("create").on(() => {})
+events.create() // emits
+```
+
+Operation functions take the same arguments and behave similar to `emit`.
 
 ## Prepositions (before or after)
 
 Subscribe to before or after the main subscription listener:
 
 ```js
-events.on("before", () => {})
+events.before().on(() => {})
 events.on(() => {})
-events.on("after", () => {})
+events.after().on(() => {})
 events.emit()
 ```
 
@@ -208,32 +188,8 @@ events.emit("hello.world") // doesn't emit
 Build lots of subscriptions at once:
 
 ```js
-events.on([
-  [() => {}],
-  ["hello.world", () => {}],
-  ["create", "hello.world", () => {}],
-  ["after", "create", "hello.world", () => {}],
-])
-```
-
-## All together now
-
-```js
-// Define operations
-events.setOps("create")
-
-// Subscriber
-events.on(
-  "before",         // Preposition
-  "create",         // Operation
-  "my.prop.id",     // Props
-  { x: true }       // Subscription options
-  ({ x, y }) => {}, // Subscription listener
-)
-
-// Emitter
-events.create( // Operation
-  "my.prop.id", // Props
-  { y: true }   // Susbcription options
-)
+events.on({
+  hello: () => {},
+  "hello.world": () => {},
+})
 ```

@@ -1,58 +1,57 @@
-import Events from "../dist/core"
 import { initState } from "../dist/args"
 
 describe("args", () => {
   test("function", () => {
-    const events = new Events()
     const { fn } = initState({
       args: [() => {}],
-      events,
     })
     expect(fn).toEqual(expect.any(Function))
   })
 
   test("options", () => {
-    const events = new Events()
     const { options } = initState({
-      args: [{ hello: "world" }],
-      events,
+      options: {
+        options: { hello: "world" },
+      },
     })
     expect(options).toEqual({ hello: "world" })
   })
 
   test("before/after", () => {
-    const events = new Events()
     const { prep } = initState({
-      args: ["before"],
-      events,
+      options: {
+        prep: "before",
+      },
     })
     expect(prep).toBe("before")
   })
 
   test("op", () => {
-    const events = new Events()
-    events.setOps("create")
     const { op } = initState({
-      args: ["create"],
-      events,
+      options: {
+        op: "create",
+      },
     })
     expect(op).toBe("create")
   })
 
   test("props", () => {
-    const events = new Events()
     const { props } = initState({
       args: ["hello"],
-      events,
     })
     expect(props).toEqual(["hello"])
   })
 
-  test("extras", () => {
-    const events = new Events()
+  test("props (array)", () => {
+    const { props } = initState({
+      args: [["hello"]],
+    })
+    expect(props).toEqual(["hello"])
+  })
+
+  test("args", () => {
     const { args } = initState({
       args: [true, false, 123, null],
-      events,
     })
     expect(args).toEqual([true, false, 123, null])
   })

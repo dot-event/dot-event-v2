@@ -6,14 +6,14 @@ describe("multi", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.on([["create", fn]])
+      events.on({ hello: fn })
 
-      await events.create().catch(console.error)
+      await events.emit("hello").catch(console.error)
 
       const payload = {
         event: {
-          op: "create",
+          listenProps: ["hello"],
+          props: ["hello"],
           signal: {},
         },
         events: expect.any(Events),
@@ -25,23 +25,19 @@ describe("multi", () => {
     test("two emit", async () => {
       const events = new Events()
       const fn = jest.fn()
+      const fn2 = jest.fn()
 
-      events.setOps("create")
-      events.on([
-        ["create", "hello", fn],
-        ["create", "hello.world", fn],
-      ])
+      events.on({
+        hello: fn,
+        "hello.world": fn2,
+      })
 
-      await events.create("hello").catch(console.error)
-
-      await events
-        .create("hello.world")
-        .catch(console.error)
+      await events.emit("hello").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello"],
-          op: "create",
           props: ["hello"],
           signal: {},
         },
@@ -51,30 +47,29 @@ describe("multi", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "world"],
-          op: "create",
           props: ["hello", "world"],
           signal: {},
         },
         events: expect.any(Events),
       }
 
-      expect(fn.mock.calls).toEqual([[payload], [payload2]])
+      expect(fn.mock.calls).toEqual([[payload]])
+      expect(fn2.mock.calls).toEqual([[payload2]])
     })
 
     test("off", async () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      const off = events.on([
-        ["create", fn],
-        ["create", "hello", fn],
-      ])
+      const off = events.on({
+        hello: fn,
+        "hello.world": fn,
+      })
 
       off()
 
-      await events.create().catch(console.error)
-      await events.create("hello").catch(console.error)
+      await events.emit("hello").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
     })

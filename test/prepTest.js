@@ -6,13 +6,12 @@ describe("prep", () => {
       const events = new Events()
       const order = []
 
-      events.setOpsSync("get")
+      events.before().on(() => order.push("a"))
+      events.on(() => order.push("b"))
+      events.after().on(() => order.push("c"))
 
-      events.on("before", "get", () => order.push("a"))
-      events.on("get", () => order.push("b"))
-      events.on("after", "get", () => order.push("c"))
+      events.emitSync()
 
-      events.get()
       expect(order).toEqual(["a", "b", "c"])
     })
 
@@ -23,7 +22,7 @@ describe("prep", () => {
 
       let after, before, during
 
-      events.on("before", async () => {
+      events.before().on(async () => {
         await timer(2)
         before = new Date().getTime()
       })
@@ -33,7 +32,7 @@ describe("prep", () => {
         during = new Date().getTime()
       })
 
-      events.on("after", async () => {
+      events.after().on(async () => {
         await timer(0)
         after = new Date().getTime()
       })

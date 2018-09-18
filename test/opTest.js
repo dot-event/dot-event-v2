@@ -6,8 +6,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.on("create", fn)
+      events.withOp("create").on(fn)
 
       await events.create().catch(console.error)
 
@@ -26,8 +25,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.on("create", fn)
+      events.withOp("create").on(fn)
 
       await events.create().catch(console.error)
       await events.create().catch(console.error)
@@ -47,10 +45,9 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.on("create", "hi", fn)
+      events.withOp("create").on("hi", fn)
 
-      await events.create("hello").catch(console.error)
+      await events.create().catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
     })
@@ -58,18 +55,19 @@ describe("op", () => {
     test("subscriber options", async () => {
       const events = new Events()
       const fn = jest.fn()
-      const option = { opt: true }
+      const options = { opt: true }
 
-      events.setOps("create")
-      events.on("create", fn, option)
+      events
+        .withOp("create")
+        .withOptions(options)
+        .on(fn)
 
       await events.create().catch(console.error)
 
       const payload = {
         event: {
-          listenArgs: [option],
           op: "create",
-          options: option,
+          options: options,
           signal: {},
         },
         events: expect.any(Events),
@@ -79,36 +77,11 @@ describe("op", () => {
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
-    test("emit options", async () => {
-      const events = new Events()
-      const fn = jest.fn()
-      const option = { opt: true }
-
-      events.setOps("create")
-      events.on("create", fn)
-
-      await events.create(option).catch(console.error)
-
-      const payload = {
-        event: {
-          args: [option],
-          op: "create",
-          options: option,
-          signal: {},
-        },
-        events: expect.any(Events),
-        opt: true,
-      }
-
-      expect(fn.mock.calls).toEqual([[payload]])
-    })
-
-    test("emit extras", async () => {
+    test("emit args", async () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.on("create", fn)
+      events.withOp("create").on(fn)
 
       await events.create(true).catch(console.error)
 
@@ -128,16 +101,16 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.on("create", fn)
+      events
+        .withOp("create")
+        .withOptions({ opt: true })
+        .on(fn)
 
-      await events
-        .create(true, { opt: true })
-        .catch(console.error)
+      await events.create(true).catch(console.error)
 
       const payload = {
         event: {
-          args: [true, { opt: true }],
+          args: [true],
           op: "create",
           options: {
             opt: true,
@@ -146,36 +119,6 @@ describe("op", () => {
         },
         events: expect.any(Events),
         opt: true,
-      }
-
-      expect(fn.mock.calls).toEqual([[payload]])
-    })
-
-    test("emit extras and options with subscriber options", async () => {
-      const events = new Events()
-      const fn = jest.fn()
-
-      events.setOps("create")
-      events.on("create", fn, { opt2: true })
-
-      await events
-        .create(true, { opt: true })
-        .catch(console.error)
-
-      const payload = {
-        event: {
-          args: [true, { opt: true }],
-          listenArgs: [{ opt2: true }],
-          op: "create",
-          options: {
-            opt: true,
-            opt2: true,
-          },
-          signal: {},
-        },
-        events: expect.any(Events),
-        opt: true,
-        opt2: true,
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -187,8 +130,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.onAny("create", fn)
+      events.withOp("create").onAny(fn)
 
       await events.create().catch(console.error)
       await events.create("hello").catch(console.error)
@@ -219,8 +161,7 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.once("create", fn)
+      events.withOp("create").once(fn)
 
       await events.create().catch(console.error)
       await events.create().catch(console.error)
@@ -232,8 +173,10 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.once("create").then(fn)
+      events
+        .withOp("create")
+        .once()
+        .then(fn)
 
       await events.create()
       await events.create()
@@ -245,8 +188,10 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
-      events.once("create", fn).then(fn)
+      events
+        .withOp("create")
+        .once(fn)
+        .then(fn)
 
       await events.create()
       await events.create()
@@ -261,10 +206,11 @@ describe("op", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.setOps("create")
+      events.withOp("create")
+
       await events.create().catch(console.error)
 
-      events.onceEmitted("create", fn)
+      events.withOp("create").onceEmitted(fn)
 
       expect(fn.mock.calls.length).toBe(1)
     })

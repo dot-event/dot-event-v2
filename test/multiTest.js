@@ -22,6 +22,20 @@ describe("multi", () => {
       expect(fn.mock.calls).toEqual([[payload]])
     })
 
+    test("one emit w/ multiple listeners", async () => {
+      const events = new Events()
+      const out = []
+
+      const fn = () => out.push("a")
+      const fn2 = () => out.push("b")
+
+      events.on({ hello: [fn, fn2] })
+
+      await events.emit("hello").catch(console.error)
+
+      expect(out).toEqual(["a", "b"])
+    })
+
     test("two emit", async () => {
       const events = new Events()
       const fn = jest.fn()
@@ -72,6 +86,23 @@ describe("multi", () => {
       await events.emit("hello.world").catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
+    })
+
+    test("off w/ multiple listeners", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+      const fn2 = jest.fn()
+
+      const off = events.on({
+        "hello.world": [fn, fn2],
+      })
+
+      off()
+
+      await events.emit("hello.world").catch(console.error)
+
+      expect(fn.mock.calls.length).toBe(0)
+      expect(fn2.mock.calls.length).toBe(0)
     })
   })
 })

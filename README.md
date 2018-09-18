@@ -54,9 +54,7 @@ events.emit() // doesn't emit
 
 ## Subscription listener argument
 
-Subscription listeners receive a single object argument.
-
-To add to that object, use the `withOptions` function on emit:
+Subscription listeners receive a single object argument. To add to that object, use the `withOptions` function on emit:
 
 ```js
 events.on(({ hello }) => {})
@@ -185,7 +183,7 @@ events.emit("hello.world") // doesn't emit
 
 ## Subscriber shorthand
 
-Build lots of subscriptions at once:
+Build lots of dot-prop subscriptions at once:
 
 ```js
 events.on({

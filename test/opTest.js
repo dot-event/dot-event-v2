@@ -41,12 +41,27 @@ describe("op", () => {
       expect(fn.mock.calls).toEqual([[payload], [payload]])
     })
 
+    test("emit with prop cases", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+      const fn2 = jest.fn()
+
+      events.withOp("create").on("hi", fn)
+      await events.emit("hi").catch(console.error)
+
+      expect(fn.mock.calls.length).toBe(0)
+
+      events.on("hi", fn2)
+      await events.create("hi").catch(console.error)
+
+      expect(fn2.mock.calls.length).toBe(1)
+    })
+
     test("no emits", async () => {
       const events = new Events()
       const fn = jest.fn()
 
       events.withOp("create").on("hi", fn)
-
       await events.create().catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)

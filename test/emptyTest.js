@@ -33,6 +33,19 @@ describe("empty", () => {
       expect(fn.mock.calls.length).toBe(0)
     })
 
+    test("emit function", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+
+      events.on(fn)
+
+      await events.emit(() => {})
+
+      expect(fn.mock.calls[0][0].event.args[0]).toEqual(
+        expect.any(Function)
+      )
+    })
+
     test("options", async () => {
       const events = new Events()
       const fn = jest.fn()

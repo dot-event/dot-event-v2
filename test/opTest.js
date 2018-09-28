@@ -141,20 +141,18 @@ describe("op", () => {
   })
 
   describe("onAny", () => {
-    test("two emits", async () => {
+    test("two emits (subscribe without op)", async () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.withOp("create").onAny(fn)
+      events.withOp("create")
+      events.onAny(fn)
 
-      await events.create().catch(console.error)
+      await events.emit().catch(console.error)
       await events.create("hello").catch(console.error)
 
       const payload = {
-        event: {
-          op: "create",
-          signal: {},
-        },
+        event: { signal: {} },
         events: expect.any(Events),
       }
 
@@ -168,6 +166,27 @@ describe("op", () => {
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
+    })
+
+    test("two emits (subscribe with op)", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+
+      events.withOp("create").onAny(fn)
+
+      await events.emit().catch(console.error)
+      await events.create("hello").catch(console.error)
+
+      const payload = {
+        event: {
+          op: "create",
+          props: ["hello"],
+          signal: {},
+        },
+        events: expect.any(Events),
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
     })
   })
 

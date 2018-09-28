@@ -69,6 +69,18 @@ describe("empty", () => {
 
       expect(fn.mock.calls).toEqual([[payload]])
     })
+
+    test("on op", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+
+      events.withOp("create")
+      events.on(fn)
+
+      await events.create()
+
+      expect(fn.mock.calls[0].length).toBe(1)
+    })
   })
 
   describe("onAnyEmitted", () => {

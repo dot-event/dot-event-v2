@@ -7,10 +7,7 @@ describe("keys", () => {
     })
 
     test("subscribe empty", () => {
-      expect(onKeys({ subscribe: true })).toEqual([
-        "::",
-        ":*:",
-      ])
+      expect(onKeys({ subscribe: true })).toEqual(["::"])
     })
 
     test("emit prop", () => {
@@ -29,7 +26,7 @@ describe("keys", () => {
           },
           subscribe: true,
         })
-      ).toEqual(["::hello", ":*:hello"])
+      ).toEqual(["::hello"])
     })
   })
 
@@ -39,10 +36,7 @@ describe("keys", () => {
     })
 
     test("subscribe empty", () => {
-      expect(anyKeys({ subscribe: true })).toEqual([
-        "::",
-        ":*:",
-      ])
+      expect(anyKeys({ subscribe: true })).toEqual(["::"])
     })
 
     test("emit prop", () => {
@@ -79,7 +73,7 @@ describe("keys", () => {
           },
           subscribe: true,
         })
-      ).toEqual(["::hello.world", ":*:hello.world"])
+      ).toEqual(["::hello.world"])
     })
   })
 })

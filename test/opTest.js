@@ -41,7 +41,7 @@ describe("op", () => {
       expect(fn.mock.calls).toEqual([[payload], [payload]])
     })
 
-    test("emit with prop cases", async () => {
+    test.only("emit with prop cases", async () => {
       const events = new Events()
       const fn = jest.fn()
       const fn2 = jest.fn()
@@ -52,6 +52,11 @@ describe("op", () => {
       expect(fn.mock.calls.length).toBe(0)
 
       events.on("hi", fn2)
+      await events.create("hi").catch(console.error)
+
+      expect(fn2.mock.calls.length).toBe(0)
+
+      events.withOp("*").on("hi", fn2)
       await events.create("hi").catch(console.error)
 
       expect(fn2.mock.calls.length).toBe(1)
@@ -149,23 +154,14 @@ describe("op", () => {
       events.onAny(fn)
 
       await events.emit().catch(console.error)
-      await events.create("hello").catch(console.error)
+      await events.create().catch(console.error)
 
       const payload = {
         event: { signal: {} },
         events: expect.any(Events),
       }
 
-      const payload2 = {
-        event: {
-          op: "create",
-          props: ["hello"],
-          signal: {},
-        },
-        events: expect.any(Events),
-      }
-
-      expect(fn.mock.calls).toEqual([[payload], [payload2]])
+      expect(fn.mock.calls).toEqual([[payload]])
     })
 
     test("two emits (subscribe with op)", async () => {

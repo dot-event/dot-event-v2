@@ -163,13 +163,14 @@ describe("empty", () => {
   })
 
   describe("onceAny", () => {
-    test("one emit", async () => {
+    test("two emits", async () => {
       const events = new Events()
       const fn = jest.fn()
 
       events.onceAny(fn)
 
       await events.emit("hello").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {

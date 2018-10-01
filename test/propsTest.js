@@ -202,6 +202,31 @@ describe("props", () => {
     })
   })
 
+  describe("once", () => {
+    test("two wildcard variable emits", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+
+      events.once("hello.{place}", fn)
+
+      await events.emit("hello.world").catch(console.error)
+      await events.emit("hello.world").catch(console.error)
+
+      const payload = {
+        event: {
+          listenProps: ["hello", "{place}"],
+          options: { place: "world" },
+          props: ["hello", "world"],
+          signal: {},
+        },
+        events: expect.any(Events),
+        place: "world",
+      }
+
+      expect(fn.mock.calls).toEqual([[payload]])
+    })
+  })
+
   describe("onceAnyEmitted", () => {
     test("one emit", async () => {
       const events = new Events()

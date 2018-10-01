@@ -41,7 +41,7 @@ describe("op", () => {
       expect(fn.mock.calls).toEqual([[payload], [payload]])
     })
 
-    test.only("emit with prop cases", async () => {
+    test("emit with prop cases", async () => {
       const events = new Events()
       const fn = jest.fn()
       const fn2 = jest.fn()

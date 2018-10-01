@@ -36,6 +36,21 @@ describe("multi", () => {
       expect(out).toEqual(["a", "b"])
     })
 
+    test("one emit w/ multiple nested listeners", async () => {
+      const events = new Events()
+      const out = []
+
+      const fn = () => out.push("a")
+      const fn2 = () => out.push("b")
+      const fn3 = () => out.push("c")
+
+      events.on({ hello: { hi: [fn, [fn2, fn3]] } })
+
+      await events.emit("hello").catch(console.error)
+
+      expect(out).toEqual(["a", "b", "c"])
+    })
+
     test("two emit", async () => {
       const events = new Events()
       const fn = jest.fn()

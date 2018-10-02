@@ -44,7 +44,7 @@ describe("multi", () => {
       const fn2 = () => out.push("b")
       const fn3 = () => out.push("c")
 
-      events.on({ hello: { hi: [fn, [fn2, fn3]] } })
+      events.on({ hello: { hi: [{ fn }, [fn2, fn3]] } })
 
       await events.emit("hello").catch(console.error)
 

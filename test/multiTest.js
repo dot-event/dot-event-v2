@@ -36,6 +36,25 @@ describe("multi", () => {
       expect(out).toEqual(["a", "b"])
     })
 
+    test("one emit w/ multiple listeners and condition", async () => {
+      const events = new Events()
+      const out = []
+
+      const fn = () => out.push("a")
+      const fn2 = () => out.push("b")
+
+      const if1 = async () => true
+      const if2 = async () => false
+
+      events.on({
+        hello: [{ fn, if: if1 }, { fn2, if: if2 }],
+      })
+
+      await events.emit("hello").catch(console.error)
+
+      expect(out).toEqual(["a"])
+    })
+
     test("one emit w/ multiple nested listeners", async () => {
       const events = new Events()
       const out = []

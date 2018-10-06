@@ -191,3 +191,20 @@ events.on({
   "hello.world": () => {},
 })
 ```
+
+## Test matrix
+
+| Function       | Features                                                          | Empty | Props | Wildcard | Prop variable | Wildcard op | Returns promise |
+| -------------- | ----------------------------------------------------------------- | ----- | ----- | -------- | ------------- | ----------- | --------------- |
+| after          | Emits after                                                       | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| before         | Emits before                                                      | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| emit           | Emits                                                             | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| on             | Subscribes                                                        | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| onAny          | Subscribes to child props                                         | ✓     | ✓     | ✓        | ✓             | ✓           | ✓               |
+| onAnyEmitted   | Subscribes to child prop, emit immediately if previous emit       | ✓     | ✓     | ✓        | ✓             | ✓           | ✓               |
+| onEmitted      | Emit immediately if previous emit                                 | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| once           | Subscribes once                                                   | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| onceAny        | Subscribes to child props once                                    | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| onceAnyEmitted | Subscribes to child props once, emit immediately if previous emit | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| onceEmitted    | Subscribes to child props once, emit immediately if previous emit | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |
+| withOptions    | Adds options to emit, adds options to subscribe                   | ✗     | ✗     | ✗        | ✗             | ✗           | ✗               |

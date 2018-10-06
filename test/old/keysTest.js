@@ -1,4 +1,4 @@
-import { anyKeys, onKeys } from "../dist/keys"
+import { anyKeys, onKeys } from "../../dist/keys"
 
 describe("keys", () => {
   describe("onKeys", () => {

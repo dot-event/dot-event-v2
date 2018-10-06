@@ -1,4 +1,4 @@
-import Events from "../dist/core"
+import Events from "../../dist/core"
 
 describe("options", () => {
   test("subscriber and listener options", async () => {

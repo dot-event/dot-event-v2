@@ -1,4 +1,4 @@
-import { initState } from "../dist/args"
+import { initState } from "../../dist/args"
 
 describe("args", () => {
   test("function", () => {

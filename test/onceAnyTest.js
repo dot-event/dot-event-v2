@@ -1,17 +1,21 @@
 import Events from "../dist/core"
 
-describe("onceAnyEmitted", () => {
-  describe("Emit immediately if previous emit", () => {
+describe("onceAny", () => {
+  describe("Subscribes to child props", () => {
     test("Empty", async () => {
       const events = new Events()
       const fn = jest.fn()
 
+      events.onceAny(fn)
+
       await events.emit("hello").catch(console.error)
-      events.onceAnyEmitted(fn)
-      await events.emit("hello").catch(console.error)
+      await events.emit().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          props: ["hello"],
+          signal: {},
+        },
         events: expect.any(Events),
       }
 
@@ -21,8 +25,11 @@ describe("onceAnyEmitted", () => {
     test("Empty returns promise", async () => {
       const events = new Events()
 
-      await events.emit("hello").catch(console.error)
-      const out = await events.onceAnyEmitted()
+      setTimeout(() => {
+        events.emit("hello").catch(console.error)
+      }, 1)
+
+      const out = await events.onceAny()
 
       const payload = {
         event: {},
@@ -37,12 +44,17 @@ describe("onceAnyEmitted", () => {
       const fn = jest.fn()
 
       events.withOp("test")
+      events.withOp("*").onceAny(fn)
+
       await events.test("hello").catch(console.error)
-      events.withOp("*").onceAnyEmitted(fn)
-      await events.test("hello").catch(console.error)
+      await events.test().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          op: "test",
+          props: ["hello"],
+          signal: {},
+        },
         events: expect.any(Events),
       }
 
@@ -53,19 +65,19 @@ describe("onceAnyEmitted", () => {
       const events = new Events()
       const fn = jest.fn()
 
+      events.onceAny("hello.world", fn)
+
+      await events.emit("hello").catch(console.error)
       await events
         .emit("hello.world.again")
         .catch(console.error)
-
-      events.onceAnyEmitted("hello.world", fn)
-
-      await events
-        .emit("hello.world.again")
-        .catch(console.error)
+      await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "world"],
+          props: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -78,20 +90,20 @@ describe("onceAnyEmitted", () => {
       const fn = jest.fn()
 
       events.withOp("test")
+      events.withOp("*").onceAny("hello.world", fn)
 
+      await events.test("hello").catch(console.error)
       await events
         .test("hello.world.again")
         .catch(console.error)
-
-      events.withOp("*").onceAnyEmitted("hello.world", fn)
-
-      await events
-        .test("hello.world.again")
-        .catch(console.error)
+      await events.test("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "world"],
+          op: "test",
+          props: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -103,13 +115,19 @@ describe("onceAnyEmitted", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      await events.emit("hello.world").catch(console.error)
-      events.onceAnyEmitted("hello.*", fn)
+      events.onceAny("hello.*", fn)
+
+      await events.emit("hello").catch(console.error)
+      await events
+        .emit("hello.world.again")
+        .catch(console.error)
       await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "*"],
+          props: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -122,13 +140,20 @@ describe("onceAnyEmitted", () => {
       const fn = jest.fn()
 
       events.withOp("test")
-      await events.test("hello.world").catch(console.error)
-      events.withOp("*").onceAnyEmitted("hello.*", fn)
+      events.withOp("*").onceAny("hello.*", fn)
+
+      await events.test("hello").catch(console.error)
+      await events
+        .test("hello.world.again")
+        .catch(console.error)
       await events.test("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "*"],
+          op: "test",
+          props: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
       }
@@ -140,15 +165,23 @@ describe("onceAnyEmitted", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      await events.emit("hello.world").catch(console.error)
-      events.onceAnyEmitted("hello.{var}", fn)
+      events.onceAny("hello.{var}", fn)
+
+      await events.emit("hello").catch(console.error)
+      await events
+        .emit("hello.world.again")
+        .catch(console.error)
       await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "{var}"],
+          options: { var: "world" },
+          props: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
+        var: "world",
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -159,15 +192,24 @@ describe("onceAnyEmitted", () => {
       const fn = jest.fn()
 
       events.withOp("test")
-      await events.test("hello.world").catch(console.error)
-      events.withOp("*").onceAnyEmitted("hello.{var}", fn)
+      events.withOp("*").onceAny("hello.{var}", fn)
+
+      await events.test("hello").catch(console.error)
+      await events
+        .test("hello.world.again")
+        .catch(console.error)
       await events.test("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "test",
+          options: { var: "world" },
+          props: ["hello", "world", "again"],
+          signal: {},
         },
         events: expect.any(Events),
+        var: "world",
       }
 
       expect(fn.mock.calls).toEqual([[payload]])

@@ -204,7 +204,7 @@ events.on({
 | `onAnyEmitted`   | Subscribes to child prop<br/>Emit immediately if emitted                           |   ✓   |   ✓   |    ✓     |       ✓       |      ✓      |
 | `onEmitted`      | Emit immediately if emitted                                                        |   ✗   |   ✗   |    ✗     |       ✗       |      ✗      |
 | `once`           | Subscribes once<br/>Returns promise                                                |   ✗   |   ✗   |    ✗     |       ✗       |      ✗      |
-| `onceAny`        | Subscribes to child props once<br/>Returns promise                                 |   ✗   |   ✗   |    ✗     |       ✗       |      ✗      |
-| `onceAnyEmitted` | Subscribes to child props once<br/>Emit immediately if emitted<br/>Returns promise |   ✗   |   ✗   |    ✗     |       ✗       |      ✗      |
+| `onceAny`        | Subscribes to child props once<br/>Returns promise                                 |   ✓   |   ✓   |    ✓     |       ✓       |      ✓      |
+| `onceAnyEmitted` | Subscribes to child props once<br/>Emit immediately if emitted<br/>Returns promise |   ✓   |   ✓   |    ✓     |       ✓       |      ✓      |
 | `onceEmitted`    | Subscribes to child props once<br/>Emit immediately if emitted<br/>Returns promise |   ✗   |   ✗   |    ✗     |       ✗       |      ✗      |
 | `withOptions`    | Adds options to emit<br/>Adds options to subscribe                                 |   ✗   |   ✗   |    ✗     |       ✗       |      ✗      |

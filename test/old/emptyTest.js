@@ -13,6 +13,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
+          op: "emit",
           signal: {},
         },
         events: expect.any(Events),
@@ -60,6 +61,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
+          op: "emit",
           options: options,
           signal: {},
         },
@@ -92,7 +94,9 @@ describe("empty", () => {
       events.onAnyEmitted(fn)
 
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
@@ -109,7 +113,9 @@ describe("empty", () => {
       events.onEmitted(fn)
 
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
@@ -126,12 +132,15 @@ describe("empty", () => {
       await events.emit().catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
       const payload2 = {
         event: {
+          op: "emit",
           signal: {},
         },
         events: expect.any(Events),
@@ -153,6 +162,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
+          op: "emit",
           signal: {},
         },
         events: expect.any(Events),
@@ -174,6 +184,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -194,6 +205,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
+          op: "emit",
           signal: {},
         },
         events: expect.any(Events),
@@ -209,8 +221,12 @@ describe("empty", () => {
       await events.emit().catch(console.error)
       events.onceEmitted(fn)
 
+      await events.emit().catch(console.error)
+
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
@@ -231,6 +247,7 @@ describe("empty", () => {
 
       const payload = {
         event: {
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -247,8 +264,12 @@ describe("empty", () => {
       await events.emit("hello").catch(console.error)
       events.onceAnyEmitted(fn)
 
+      await events.emit("hello").catch(console.error)
+
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 

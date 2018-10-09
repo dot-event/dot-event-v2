@@ -38,6 +38,7 @@ describe("args", () => {
   test("props", () => {
     const { props } = initState({
       args: ["hello"],
+      options: { op: "emit" },
     })
     expect(props).toEqual(["hello"])
   })
@@ -45,6 +46,7 @@ describe("args", () => {
   test("props (array)", () => {
     const { props } = initState({
       args: [["hello"]],
+      options: { op: "emit" },
     })
     expect(props).toEqual(["hello"])
   })

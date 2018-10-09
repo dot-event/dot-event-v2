@@ -13,6 +13,7 @@ describe("onceAny", () => {
 
       const payload = {
         event: {
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -32,7 +33,9 @@ describe("onceAny", () => {
       const out = await events.onceAny()
 
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
@@ -65,7 +68,7 @@ describe("onceAny", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.onceAny("hello.world", fn)
+      events.onceAny("emit.hello.world", fn)
 
       await events.emit("hello").catch(console.error)
       await events
@@ -76,6 +79,7 @@ describe("onceAny", () => {
       const payload = {
         event: {
           listenProps: ["hello", "world"],
+          op: "emit",
           props: ["hello", "world", "again"],
           signal: {},
         },
@@ -115,7 +119,7 @@ describe("onceAny", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.onceAny("hello.*", fn)
+      events.onceAny("emit.hello.*", fn)
 
       await events.emit("hello").catch(console.error)
       await events
@@ -126,6 +130,7 @@ describe("onceAny", () => {
       const payload = {
         event: {
           listenProps: ["hello", "*"],
+          op: "emit",
           props: ["hello", "world", "again"],
           signal: {},
         },
@@ -165,7 +170,7 @@ describe("onceAny", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.onceAny("hello.{var}", fn)
+      events.onceAny("emit.hello.{var}", fn)
 
       await events.emit("hello").catch(console.error)
       await events
@@ -176,6 +181,7 @@ describe("onceAny", () => {
       const payload = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "emit",
           options: { var: "world" },
           props: ["hello", "world", "again"],
           signal: {},

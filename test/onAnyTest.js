@@ -13,6 +13,7 @@ describe("onAny", () => {
 
       const payload = {
         event: {
+          op: "emit",
           signal: {},
         },
         events: expect.any(Events),
@@ -20,6 +21,7 @@ describe("onAny", () => {
 
       const payload2 = {
         event: {
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -63,7 +65,7 @@ describe("onAny", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.onAny("hello.world", fn)
+      events.onAny("emit.hello.world", fn)
 
       await events.emit("hello").catch(console.error)
       await events.emit("hello.world").catch(console.error)
@@ -74,6 +76,7 @@ describe("onAny", () => {
       const payload = {
         event: {
           listenProps: ["hello", "world"],
+          op: "emit",
           props: ["hello", "world"],
           signal: {},
         },
@@ -83,6 +86,7 @@ describe("onAny", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "world"],
+          op: "emit",
           props: ["hello", "world", "again"],
           signal: {},
         },
@@ -132,7 +136,7 @@ describe("onAny", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.onAny("hello.*", fn)
+      events.onAny("emit.hello.*", fn)
 
       await events.emit("hello").catch(console.error)
       await events.emit("hello.world").catch(console.error)
@@ -143,6 +147,7 @@ describe("onAny", () => {
       const payload = {
         event: {
           listenProps: ["hello", "*"],
+          op: "emit",
           props: ["hello", "world"],
           signal: {},
         },
@@ -152,6 +157,7 @@ describe("onAny", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "*"],
+          op: "emit",
           props: ["hello", "world", "again"],
           signal: {},
         },
@@ -201,7 +207,7 @@ describe("onAny", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.onAny("hello.{var}", fn)
+      events.onAny("emit.hello.{var}", fn)
 
       await events.emit("hello").catch(console.error)
       await events.emit("hello.world").catch(console.error)
@@ -212,6 +218,7 @@ describe("onAny", () => {
       const payload = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "emit",
           options: { var: "world" },
           props: ["hello", "world"],
           signal: {},
@@ -223,6 +230,7 @@ describe("onAny", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "emit",
           options: { var: "world" },
           props: ["hello", "world", "again"],
           signal: {},

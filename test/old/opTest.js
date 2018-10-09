@@ -157,11 +157,16 @@ describe("op", () => {
       await events.create().catch(console.error)
 
       const payload = {
-        event: { signal: {} },
+        event: { op: "emit", signal: {} },
         events: expect.any(Events),
       }
 
-      expect(fn.mock.calls).toEqual([[payload]])
+      const payload2 = {
+        event: { op: "create", signal: {} },
+        events: expect.any(Events),
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
 
     test("two emits (subscribe with op)", async () => {

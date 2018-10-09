@@ -11,12 +11,15 @@ describe("onAnyEmitted", () => {
       await events.emit("hello").catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
       const payload2 = {
         event: {
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -36,7 +39,9 @@ describe("onAnyEmitted", () => {
       await events.test("hello").catch(console.error)
 
       const payload = {
-        event: {},
+        event: {
+          op: "*",
+        },
         events: expect.any(Events),
       }
 
@@ -60,7 +65,7 @@ describe("onAnyEmitted", () => {
         .emit("hello.world.again")
         .catch(console.error)
 
-      events.onAnyEmitted("hello.world", fn)
+      events.onAnyEmitted("emit.hello.world", fn)
 
       await events
         .emit("hello.world.again")
@@ -69,6 +74,7 @@ describe("onAnyEmitted", () => {
       const payload = {
         event: {
           listenProps: ["hello", "world"],
+          op: "emit",
         },
         events: expect.any(Events),
       }
@@ -76,6 +82,7 @@ describe("onAnyEmitted", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "world"],
+          op: "emit",
           props: ["hello", "world", "again"],
           signal: {},
         },
@@ -104,6 +111,7 @@ describe("onAnyEmitted", () => {
       const payload = {
         event: {
           listenProps: ["hello", "world"],
+          op: "*",
         },
         events: expect.any(Events),
       }
@@ -126,12 +134,13 @@ describe("onAnyEmitted", () => {
       const fn = jest.fn()
 
       await events.emit("hello.world").catch(console.error)
-      events.onAnyEmitted("hello.*", fn)
+      events.onAnyEmitted("emit.hello.*", fn)
       await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "*"],
+          op: "emit",
         },
         events: expect.any(Events),
       }
@@ -139,6 +148,7 @@ describe("onAnyEmitted", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "*"],
+          op: "emit",
           props: ["hello", "world"],
           signal: {},
         },
@@ -160,6 +170,7 @@ describe("onAnyEmitted", () => {
       const payload = {
         event: {
           listenProps: ["hello", "*"],
+          op: "*",
         },
         events: expect.any(Events),
       }
@@ -182,12 +193,13 @@ describe("onAnyEmitted", () => {
       const fn = jest.fn()
 
       await events.emit("hello.world").catch(console.error)
-      events.onAnyEmitted("hello.{var}", fn)
+      events.onAnyEmitted("emit.hello.{var}", fn)
       await events.emit("hello.world").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "emit",
         },
         events: expect.any(Events),
       }
@@ -195,6 +207,7 @@ describe("onAnyEmitted", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "emit",
           options: { var: "world" },
           props: ["hello", "world"],
           signal: {},
@@ -218,6 +231,7 @@ describe("onAnyEmitted", () => {
       const payload = {
         event: {
           listenProps: ["hello", "{var}"],
+          op: "*",
         },
         events: expect.any(Events),
       }

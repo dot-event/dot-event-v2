@@ -6,13 +6,14 @@ describe("multi", () => {
       const events = new Events()
       const fn = jest.fn()
 
-      events.on({ hello: fn })
+      events.on({ "emit.hello": fn })
 
       await events.emit("hello").catch(console.error)
 
       const payload = {
         event: {
           listenProps: ["hello"],
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -29,7 +30,7 @@ describe("multi", () => {
       const fn = () => out.push("a")
       const fn2 = () => out.push("b")
 
-      events.on({ hello: [fn, fn2] })
+      events.on({ "emit.hello": [fn, fn2] })
 
       await events.emit("hello").catch(console.error)
 
@@ -47,7 +48,7 @@ describe("multi", () => {
       const if2 = async () => false
 
       events.on({
-        hello: [{ fn, if: if1 }, { fn2, if: if2 }],
+        "emit.hello": [{ fn, if: if1 }, { fn2, if: if2 }],
       })
 
       await events.emit("hello").catch(console.error)
@@ -63,7 +64,9 @@ describe("multi", () => {
       const fn2 = () => out.push("b")
       const fn3 = () => out.push("c")
 
-      events.on({ hello: { hi: [{ fn }, [fn2, fn3]] } })
+      events.on({
+        "emit.hello": { hi: [{ fn }, [fn2, fn3]] },
+      })
 
       await events.emit("hello").catch(console.error)
 
@@ -76,8 +79,8 @@ describe("multi", () => {
       const fn2 = jest.fn()
 
       events.on({
-        hello: fn,
-        "hello.world": fn2,
+        "emit.hello": fn,
+        "emit.hello.world": fn2,
       })
 
       await events.emit("hello").catch(console.error)
@@ -86,6 +89,7 @@ describe("multi", () => {
       const payload = {
         event: {
           listenProps: ["hello"],
+          op: "emit",
           props: ["hello"],
           signal: {},
         },
@@ -95,6 +99,7 @@ describe("multi", () => {
       const payload2 = {
         event: {
           listenProps: ["hello", "world"],
+          op: "emit",
           props: ["hello", "world"],
           signal: {},
         },
@@ -110,8 +115,8 @@ describe("multi", () => {
       const fn = jest.fn()
 
       const off = events.on({
-        hello: fn,
-        "hello.world": fn,
+        "emit.hello": fn,
+        "emit.hello.world": fn,
       })
 
       off()
@@ -128,7 +133,7 @@ describe("multi", () => {
       const fn2 = jest.fn()
 
       const off = events.on({
-        "hello.world": [fn, fn2],
+        "emit.hello.world": [fn, fn2],
       })
 
       off()

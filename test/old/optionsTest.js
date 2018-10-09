@@ -16,6 +16,7 @@ describe("options", () => {
 
     const payload = {
       event: {
+        op: "emit",
         options: Object.assign({}, options, options2),
         signal: {},
       },

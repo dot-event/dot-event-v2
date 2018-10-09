@@ -27,4 +27,26 @@ describe("options", () => {
 
     expect(fn.mock.calls).toEqual([[payload]])
   })
+
+  test("emit options", async () => {
+    const events = new Events()
+    const fn = jest.fn()
+
+    events.on(fn)
+
+    await events.emit({ opt: true }).catch(console.error)
+
+    const payload = {
+      event: {
+        args: [{ opt: true }],
+        op: "emit",
+        options: { opt: true },
+        signal: {},
+      },
+      events: expect.any(Events),
+      opt: true,
+    }
+
+    expect(fn.mock.calls).toEqual([[payload]])
+  })
 })

@@ -31,7 +31,7 @@ describe("onAny", () => {
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
 
-    test.only("Empty with op", async () => {
+    test("Empty with op", async () => {
       const events = new Events()
       const fn = jest.fn()
 

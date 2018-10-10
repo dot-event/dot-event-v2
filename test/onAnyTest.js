@@ -31,6 +31,36 @@ describe("onAny", () => {
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
     })
 
+    test.only("Empty with op", async () => {
+      const events = new Events()
+      const fn = jest.fn()
+
+      events.withOp("test")
+      events.onAny("test", fn)
+
+      await events.test().catch(console.error)
+      await events.test("hello").catch(console.error)
+
+      const payload = {
+        event: {
+          op: "test",
+          signal: {},
+        },
+        events: expect.any(Events),
+      }
+
+      const payload2 = {
+        event: {
+          op: "test",
+          props: ["hello"],
+          signal: {},
+        },
+        events: expect.any(Events),
+      }
+
+      expect(fn.mock.calls).toEqual([[payload], [payload2]])
+    })
+
     test("Empty with wildcard op", async () => {
       const events = new Events()
       const fn = jest.fn()

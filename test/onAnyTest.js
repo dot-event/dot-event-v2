@@ -1,9 +1,9 @@
-import Events from "../dist/core"
+import dotEvent, { Events } from "../dist/core"
 
 describe("onAny", () => {
   describe("Subscribes to child props", () => {
     test("Empty", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny(fn)
@@ -32,10 +32,10 @@ describe("onAny", () => {
     })
 
     test("Empty with op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
+      events.setOps("test")
       events.onAny("test", fn)
 
       await events.test().catch(console.error)
@@ -62,11 +62,11 @@ describe("onAny", () => {
     })
 
     test("Empty with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
-      events.withOp("*").onAny(fn)
+      events.setOps("test")
+      events.onAny("*", fn)
 
       await events.test().catch(console.error)
       await events.test("hello").catch(console.error)
@@ -92,7 +92,7 @@ describe("onAny", () => {
     })
 
     test("Props", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny("emit.hello.world", fn)
@@ -127,11 +127,11 @@ describe("onAny", () => {
     })
 
     test("Props with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
-      events.withOp("*").onAny("hello.world", fn)
+      events.setOps("test")
+      events.onAny("*.hello.world", fn)
 
       await events.test("hello").catch(console.error)
       await events.test("hello.world").catch(console.error)
@@ -163,7 +163,7 @@ describe("onAny", () => {
     })
 
     test("Wildcard", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny("emit.hello.*", fn)
@@ -198,11 +198,11 @@ describe("onAny", () => {
     })
 
     test("Wildcard with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
-      events.withOp("*").onAny("hello.*", fn)
+      events.setOps("test")
+      events.onAny("*.hello.*", fn)
 
       await events.test("hello").catch(console.error)
       await events.test("hello.world").catch(console.error)
@@ -234,7 +234,7 @@ describe("onAny", () => {
     })
 
     test("Prop variable", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny("emit.hello.{var}", fn)
@@ -273,11 +273,11 @@ describe("onAny", () => {
     })
 
     test("Prop variable with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
-      events.withOp("*").onAny("hello.{var}", fn)
+      events.setOps("test")
+      events.onAny("*.hello.{var}", fn)
 
       await events.test("hello").catch(console.error)
       await events.test("hello.world").catch(console.error)

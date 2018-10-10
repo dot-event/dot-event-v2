@@ -1,15 +1,15 @@
-import Events from "../../dist/core"
+import dotEvent from "../../dist/core"
 
 describe("prep", () => {
   describe("on", () => {
     test("emit once", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const order = []
 
       const timer = ms =>
         new Promise(res => setTimeout(res, ms))
 
-      events.before().on(async () => {
+      events.on("before", async () => {
         await timer(2)
         order.push(1)
       })
@@ -19,7 +19,7 @@ describe("prep", () => {
         order.push(2)
       })
 
-      events.after().on(async () => {
+      events.on("after", async () => {
         await timer(0)
         order.push(3)
       })

@@ -1,9 +1,9 @@
-import Events from "../../dist/core"
+import dotEvent, { Events } from "../../dist/core"
 
 describe("name", () => {
   describe("on", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.setName("store")

@@ -1,9 +1,9 @@
-import Events from "../../dist/core"
+import dotEvent, { Events } from "../../dist/core"
 
 describe("multi", () => {
   describe("on", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on({ "emit.hello": fn })
@@ -24,7 +24,7 @@ describe("multi", () => {
     })
 
     test("one emit w/ multiple listeners", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const out = []
 
       const fn = () => out.push("a")
@@ -38,7 +38,7 @@ describe("multi", () => {
     })
 
     test("one emit w/ multiple listeners and condition", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const out = []
 
       const fn = () => out.push("a")
@@ -57,7 +57,7 @@ describe("multi", () => {
     })
 
     test("one emit w/ multiple nested listeners", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const out = []
 
       const fn = () => out.push("a")
@@ -74,7 +74,7 @@ describe("multi", () => {
     })
 
     test("two emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
       const fn2 = jest.fn()
 
@@ -111,7 +111,7 @@ describe("multi", () => {
     })
 
     test("off", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       const off = events.on({
@@ -128,7 +128,7 @@ describe("multi", () => {
     })
 
     test("off w/ multiple listeners", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
       const fn2 = jest.fn()
 

@@ -1,9 +1,9 @@
-import Events from "../dist/core"
+import dotEvent, { Events } from "../dist/core"
 
 describe("onceAnyEmitted", () => {
   describe("Emit immediately if previous emit", () => {
     test("Empty", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit("hello").catch(console.error)
@@ -21,7 +21,7 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Empty returns promise", async () => {
-      const events = new Events()
+      const events = dotEvent()
 
       await events.emit("hello").catch(console.error)
       const out = await events.onceAnyEmitted()
@@ -37,12 +37,12 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Empty with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
+      events.setOps("test")
       await events.test("hello").catch(console.error)
-      events.withOp("*").onceAnyEmitted(fn)
+      events.onceAnyEmitted("*", fn)
       await events.test("hello").catch(console.error)
 
       const payload = {
@@ -56,7 +56,7 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Props", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events
@@ -81,16 +81,16 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Props with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
+      events.setOps("test")
 
       await events
         .test("hello.world.again")
         .catch(console.error)
 
-      events.withOp("*").onceAnyEmitted("hello.world", fn)
+      events.onceAnyEmitted("*.hello.world", fn)
 
       await events
         .test("hello.world.again")
@@ -108,7 +108,7 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Wildcard", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit("hello.world").catch(console.error)
@@ -127,12 +127,12 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Wildcard with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
+      events.setOps("test")
       await events.test("hello.world").catch(console.error)
-      events.withOp("*").onceAnyEmitted("hello.*", fn)
+      events.onceAnyEmitted("*.hello.*", fn)
       await events.test("hello.world").catch(console.error)
 
       const payload = {
@@ -147,7 +147,7 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Prop variable", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit("hello.world").catch(console.error)
@@ -166,12 +166,12 @@ describe("onceAnyEmitted", () => {
     })
 
     test("Prop variable with wildcard op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("test")
+      events.setOps("test")
       await events.test("hello.world").catch(console.error)
-      events.withOp("*").onceAnyEmitted("hello.{var}", fn)
+      events.onceAnyEmitted("*.hello.{var}", fn)
       await events.test("hello.world").catch(console.error)
 
       const payload = {

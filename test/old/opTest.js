@@ -1,12 +1,13 @@
-import Events from "../../dist/core"
+import dotEvent, { Events } from "../../dist/core"
 
 describe("op", () => {
   describe("on", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create").on(fn)
+      events.setOps("create")
+      events.on("create", fn)
 
       await events.create().catch(console.error)
 
@@ -22,10 +23,11 @@ describe("op", () => {
     })
 
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create").on(fn)
+      events.setOps("create")
+      events.on("create", fn)
 
       await events.create().catch(console.error)
       await events.create().catch(console.error)
@@ -42,11 +44,13 @@ describe("op", () => {
     })
 
     test("emit with prop cases", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
       const fn2 = jest.fn()
 
-      events.withOp("create").on("hi", fn)
+      events.setOps("create")
+
+      events.on("create.hi", fn)
       await events.emit("hi").catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
@@ -56,31 +60,31 @@ describe("op", () => {
 
       expect(fn2.mock.calls.length).toBe(0)
 
-      events.withOp("*").on("hi", fn2)
+      events.on("*.hi", fn2)
       await events.create("hi").catch(console.error)
 
       expect(fn2.mock.calls.length).toBe(1)
     })
 
     test("no emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create").on("hi", fn)
+      events.setOps("create")
+
+      events.on("create.hi", fn)
       await events.create().catch(console.error)
 
       expect(fn.mock.calls.length).toBe(0)
     })
 
     test("subscriber options", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
       const options = { opt: true }
 
-      events
-        .withOp("create")
-        .withOptions(options)
-        .on(fn)
+      events.setOps("create")
+      events.withOptions(options).on("create", fn)
 
       await events.create().catch(console.error)
 
@@ -98,10 +102,11 @@ describe("op", () => {
     })
 
     test("emit args", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create").on(fn)
+      events.setOps("create")
+      events.on("create", fn)
 
       await events.create(true).catch(console.error)
 
@@ -118,13 +123,11 @@ describe("op", () => {
     })
 
     test("emit extras and options", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events
-        .withOp("create")
-        .withOptions({ opt: true })
-        .on(fn)
+      events.setOps("create")
+      events.withOptions({ opt: true }).on("create", fn)
 
       await events.create(true).catch(console.error)
 
@@ -147,10 +150,10 @@ describe("op", () => {
 
   describe("onAny", () => {
     test("two emits (subscribe without op)", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create")
+      events.setOps("create")
       events.onAny(fn)
 
       await events.emit().catch(console.error)
@@ -170,10 +173,11 @@ describe("op", () => {
     })
 
     test("two emits (subscribe with op)", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create").onAny(fn)
+      events.setOps("create")
+      events.onAny("create", fn)
 
       await events.emit().catch(console.error)
       await events.create("hello").catch(console.error)
@@ -193,10 +197,11 @@ describe("op", () => {
 
   describe("once", () => {
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create").once(fn)
+      events.setOps("create")
+      events.once("create", fn)
 
       await events.create().catch(console.error)
       await events.create().catch(console.error)
@@ -205,13 +210,11 @@ describe("op", () => {
     })
 
     test("two emits with promise", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events
-        .withOp("create")
-        .once()
-        .then(fn)
+      events.setOps("create")
+      events.once("create").then(fn)
 
       await events.create()
       await events.create()
@@ -220,13 +223,11 @@ describe("op", () => {
     })
 
     test("two emits with promise and callback", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events
-        .withOp("create")
-        .once(fn)
-        .then(fn)
+      events.setOps("create")
+      events.once("create", fn).then(fn)
 
       await events.create()
       await events.create()
@@ -238,14 +239,14 @@ describe("op", () => {
 
   describe("onceEmitted", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create")
+      events.setOps("create")
 
       await events.create().catch(console.error)
 
-      events.withOp("create").onceEmitted(fn)
+      events.onceEmitted("create", fn)
 
       expect(fn.mock.calls.length).toBe(1)
     })

@@ -1,9 +1,9 @@
-import Events from "../../dist/core"
+import dotEvent, { Events } from "../../dist/core"
 
 describe("empty", () => {
   describe("on", () => {
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on(fn)
@@ -23,7 +23,7 @@ describe("empty", () => {
     })
 
     test("no emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on(fn)
@@ -35,7 +35,7 @@ describe("empty", () => {
     })
 
     test("emit function", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on(fn)
@@ -48,19 +48,17 @@ describe("empty", () => {
     })
 
     test("options", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
       const options = { hello: "world" }
 
       events.on(fn)
 
-      await events
-        .withOptions(options)
-        .emit()
-        .catch(console.error)
+      await events.emit(options).catch(console.error)
 
       const payload = {
         event: {
+          args: [options],
           op: "emit",
           options: options,
           signal: {},
@@ -73,11 +71,11 @@ describe("empty", () => {
     })
 
     test("on op", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
-      events.withOp("create")
-      events.withOp("*").onAny(fn)
+      events.setOps("create")
+      events.onAny("*", fn)
 
       await events.create()
 
@@ -87,7 +85,7 @@ describe("empty", () => {
 
   describe("onAnyEmitted", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit("hello").catch(console.error)
@@ -106,7 +104,7 @@ describe("empty", () => {
 
   describe("onEmitted", () => {
     test("one emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit().catch(console.error)
@@ -123,7 +121,7 @@ describe("empty", () => {
     })
 
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit().catch(console.error)
@@ -152,7 +150,7 @@ describe("empty", () => {
 
   describe("once", () => {
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.once(fn)
@@ -174,7 +172,7 @@ describe("empty", () => {
 
   describe("onceAny", () => {
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onceAny(fn)
@@ -197,7 +195,7 @@ describe("empty", () => {
 
   describe("onceEmitted", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onceEmitted(fn)
@@ -215,7 +213,7 @@ describe("empty", () => {
     })
 
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit().catch(console.error)
@@ -239,7 +237,7 @@ describe("empty", () => {
 
   describe("onceAnyEmitted", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onceAnyEmitted(fn)
@@ -258,7 +256,7 @@ describe("empty", () => {
     })
 
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit("hello").catch(console.error)

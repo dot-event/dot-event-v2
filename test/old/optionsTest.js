@@ -1,8 +1,8 @@
-import Events from "../../dist/core"
+import dotEvent, { Events } from "../../dist/core"
 
 describe("options", () => {
   test("subscriber and listener options", async () => {
-    const events = new Events()
+    const events = dotEvent()
     const fn = jest.fn()
     const options = { opt: true }
     const options2 = { opt2: true }
@@ -29,7 +29,7 @@ describe("options", () => {
   })
 
   test("emit options", async () => {
-    const events = new Events()
+    const events = dotEvent()
     const fn = jest.fn()
 
     events.on(fn)

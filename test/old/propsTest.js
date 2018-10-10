@@ -1,9 +1,9 @@
-import Events from "../../dist/core"
+import dotEvent, { Events } from "../../dist/core"
 
 describe("props", () => {
   describe("on", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on("emit.hello.world", fn)
@@ -24,7 +24,7 @@ describe("props", () => {
     })
 
     test("one wildcard emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on("emit.hello.*", fn)
@@ -45,7 +45,7 @@ describe("props", () => {
     })
 
     test("one wildcard variable emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on("emit.hello.{place}", fn)
@@ -70,7 +70,7 @@ describe("props", () => {
     })
 
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on("emit.hello.world", fn)
@@ -92,7 +92,7 @@ describe("props", () => {
     })
 
     test("no emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.on("emit.hello.world", fn)
@@ -105,7 +105,7 @@ describe("props", () => {
 
   describe("onAny", () => {
     test("two emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny("emit.hello.world", fn)
@@ -140,7 +140,7 @@ describe("props", () => {
     })
 
     test("two wildcard emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny("emit.*", fn)
@@ -173,7 +173,7 @@ describe("props", () => {
     })
 
     test("two wildcard variable emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.onAny("emit.hello.{place}", fn)
@@ -214,7 +214,7 @@ describe("props", () => {
 
   describe("once", () => {
     test("two wildcard variable emits", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       events.once("emit.hello.{place}", fn)
@@ -240,7 +240,7 @@ describe("props", () => {
 
   describe("onceAnyEmitted", () => {
     test("one emit", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events.emit("hello.world").catch(console.error)
@@ -259,7 +259,7 @@ describe("props", () => {
     })
 
     test("one emit wildcard", async () => {
-      const events = new Events()
+      const events = dotEvent()
       const fn = jest.fn()
 
       await events

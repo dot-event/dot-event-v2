@@ -46,7 +46,7 @@ describe("onceAny", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       events.onceAny("*", fn)
 
       await events.test("hello").catch(console.error)
@@ -93,7 +93,7 @@ describe("onceAny", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       events.onceAny("*.hello.world", fn)
 
       await events.test("hello").catch(console.error)
@@ -144,7 +144,7 @@ describe("onceAny", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       events.onceAny("*.hello.*", fn)
 
       await events.test("hello").catch(console.error)
@@ -197,7 +197,7 @@ describe("onceAny", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       events.onceAny("*.hello.{var}", fn)
 
       await events.test("hello").catch(console.error)

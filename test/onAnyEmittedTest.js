@@ -33,7 +33,7 @@ describe("onAnyEmitted", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       await events.test("hello").catch(console.error)
       events.onAnyEmitted("*", fn)
       await events.test("hello").catch(console.error)
@@ -96,7 +96,7 @@ describe("onAnyEmitted", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
 
       await events
         .test("hello.world.again")
@@ -162,7 +162,7 @@ describe("onAnyEmitted", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       await events.test("hello.world").catch(console.error)
       events.onAnyEmitted("*.hello.*", fn)
       await events.test("hello.world").catch(console.error)
@@ -223,7 +223,7 @@ describe("onAnyEmitted", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("test")
+      events.setOp("test")
       await events.test("hello.world").catch(console.error)
       events.onAnyEmitted("*.hello.{var}", fn)
       await events.test("hello.world").catch(console.error)

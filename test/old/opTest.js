@@ -6,7 +6,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.on("create", fn)
 
       await events.create().catch(console.error)
@@ -26,7 +25,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.on("create", fn)
 
       await events.create().catch(console.error)
@@ -48,8 +46,6 @@ describe("op", () => {
       const fn = jest.fn()
       const fn2 = jest.fn()
 
-      events.setOps("create")
-
       events.on("create.hi", fn)
       await events.emit("hi").catch(console.error)
 
@@ -70,8 +66,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
-
       events.on("create.hi", fn)
       await events.create().catch(console.error)
 
@@ -83,9 +77,7 @@ describe("op", () => {
       const fn = jest.fn()
       const options = { opt: true }
 
-      events.setOps("create")
       events.withOptions(options).on("create", fn)
-
       await events.create().catch(console.error)
 
       const payload = {
@@ -105,7 +97,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.on("create", fn)
 
       await events.create(true).catch(console.error)
@@ -126,7 +117,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.withOptions({ opt: true }).on("create", fn)
 
       await events.create(true).catch(console.error)
@@ -153,7 +143,7 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
+      events.setOp("create")
       events.onAny(fn)
 
       await events.emit().catch(console.error)
@@ -176,7 +166,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.onAny("create", fn)
 
       await events.emit().catch(console.error)
@@ -200,7 +189,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.once("create", fn)
 
       await events.create().catch(console.error)
@@ -213,7 +201,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.once("create").then(fn)
 
       await events.create()
@@ -226,7 +213,6 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
       events.once("create", fn).then(fn)
 
       await events.create()
@@ -242,10 +228,8 @@ describe("op", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
-
+      events.setOp("create")
       await events.create().catch(console.error)
-
       events.onceEmitted("create", fn)
 
       expect(fn.mock.calls.length).toBe(1)

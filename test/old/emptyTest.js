@@ -74,7 +74,7 @@ describe("empty", () => {
       const events = dotEvent()
       const fn = jest.fn()
 
-      events.setOps("create")
+      events.setOp("create")
       events.onAny("*", fn)
 
       await events.create()

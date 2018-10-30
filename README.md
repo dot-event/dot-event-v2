@@ -1,6 +1,6 @@
 # dot-event
 
-Build beautiful and extensible eventing APIs.
+Powerful event emitter.
 
 ![dot event](dot.gif)
 
@@ -17,10 +17,12 @@ Part of the beauty of the `dot-event` API is that it can shrink down to incredib
 Here we have the simplest possible subscriber and emitter:
 
 ```js
-import Events from "dot-event"
-const events = new Events()
+import dotEvent from "dot-event"
 
-events.on(() => {})
+const events = dotEvent()
+events.on(() => {
+  /* do something */
+})
 events.emit()
 ```
 
@@ -35,10 +37,10 @@ The emitter returns a promise that waits for listeners to resolve.
 
 ## Dot-props
 
-Identify subscriptions by dot-prop string:
+Use dot-props to maintain distinct subscriptions:
 
 ```js
-events.on("hello.world", () => {})
+events.on("emit.hello.world", () => {})
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
 ```
@@ -46,19 +48,47 @@ events.emit() // doesn't emit
 Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-prop **and its child props**:
 
 ```js
-events.onAny("hello", () => {})
+events.onAny("emit.hello", () => {})
 events.emit("hello") // emits
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
 ```
 
-## Subscription listener argument
+## Operations
 
-Subscription listeners receive a single object argument. To add to that object, use the `withOptions` function on emit:
+Why do we have to specify `emit` before the the prop in this example?
 
 ```js
-events.on(({ hello }) => {})
-events.withOptions({ hello: "world" }).emit()
+events.on("emit.hello", () => {})
+events.emit("hello")
+```
+
+Because `emit` is an "operation", and you can have more than one.
+
+First, define the operation:
+
+```js
+events.setOp("create")
+```
+
+Then use it:
+
+```js
+events.on("create", () => {})
+events.create() // emits the create operation
+```
+
+Operation functions take the same arguments and behave similar to `emit`.
+
+## Subscription listener argument
+
+Subscription listeners receive a single object argument. To add to that object, pass an object to the emitter:
+
+```js
+events.on(({ hello }) => {
+  /* hello === "world" */
+})
+events.emit({ hello: "world" })
 ```
 
 Or use `withOptions` on the subscriber:
@@ -77,25 +107,20 @@ events.on(({ event }) => {
 events.emit(123, true)
 ```
 
-## Operation
-
-An "operation" is a way to namespace your events and make a custom emitter function:
-
-```js
-events.withOp("create").on(() => {})
-events.create() // emits
-```
-
-Operation functions take the same arguments and behave similar to `emit`.
-
 ## Prepositions (before or after)
 
 Subscribe to before or after the main subscription listener:
 
 ```js
-events.before().on(() => {})
-events.on(() => {})
-events.after().on(() => {})
+events.on("before", () => {
+  /* 1 */
+})
+events.on(() => {
+  /* 2 */
+})
+events.on("after", () => {
+  /* 3 */
+})
 events.emit()
 ```
 
@@ -116,7 +141,7 @@ events.create() // emits
 When used with a dot-prop, it subscribes to any child prop emit:
 
 ```js
-events.onAny("hello", () => {})
+events.onAny("emit.hello", () => {})
 events.emit("hello") // emits
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
@@ -138,7 +163,7 @@ Like `onAny`, but emit immediately if a previous emit occurred:
 
 ```js
 events.emit("hello.world")
-events.onAnyEmitted("hello", () => {}) // emits immediately
+events.onAnyEmitted("emit.hello", () => {}) // emits immediately
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
 ```
@@ -166,7 +191,7 @@ events.emit() // doesn't emit
 A combination of `once` and `onAny`:
 
 ```js
-events.onceAny("hello", () => {})
+events.onceAny("emit.hello", () => {})
 events.emit("hello.world") // emits
 events.emit("hello.world") // doesn't emit
 ```
@@ -177,7 +202,7 @@ A combination of `once`, `onAny`, and `onEmitted`:
 
 ```js
 events.emit("hello.world")
-events.onceAnyEmitted("hello", () => {}) // emits immediately
+events.onceAnyEmitted("emit.hello", () => {}) // emits immediately
 events.emit("hello.world") // doesn't emit
 ```
 
@@ -187,8 +212,8 @@ Build lots of dot-prop subscriptions at once:
 
 ```js
 events.on({
-  hello: () => {},
-  "hello.world": () => {},
+  "emit.hello": () => {},
+  "emit.hello.world": () => {},
 })
 ```
 

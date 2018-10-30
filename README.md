@@ -33,7 +33,7 @@ events.on(async () => {})
 await events.emit()
 ```
 
-The emitter returns a promise that waits for listeners to resolve.
+The emitter returns a promise that waits for all listeners to resolve concurrently.
 
 ## Dot-props
 
@@ -102,7 +102,7 @@ The listener argument also contains an `event` property with extra information, 
 
 ```js
 events.on(({ event }) => {
-  event.args // [123, true]
+  /* event.args === [123, true] */
 })
 events.emit(123, true)
 ```
@@ -135,7 +135,6 @@ events.onAny(() => {})
 events.emit() // emits
 events.emit("hello") // emits
 events.emit("hello.world") // emits
-events.create() // emits
 ```
 
 When used with a dot-prop, it subscribes to any child prop emit:

@@ -20,9 +20,11 @@ Here we have the simplest possible subscriber and emitter:
 import dotEvent from "dot-event"
 
 const events = dotEvent()
+
 events.on(() => {
   /* do something */
 })
+
 events.emit()
 ```
 
@@ -30,6 +32,7 @@ Subscription listeners can be asynchronous:
 
 ```js
 events.on(async () => {})
+
 await events.emit()
 ```
 
@@ -41,6 +44,7 @@ Use dot-props to maintain distinct subscriptions:
 
 ```js
 events.on("emit.hello.world", () => {})
+
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
 ```
@@ -49,6 +53,7 @@ Dot-props come in handy with the `onAny` subscriber, which subscribes to a dot-p
 
 ```js
 events.onAny("emit.hello", () => {})
+
 events.emit("hello") // emits
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
@@ -60,6 +65,7 @@ Why do we have to specify `emit` before the the prop in this example?
 
 ```js
 events.on("emit.hello", () => {})
+
 events.emit("hello")
 ```
 
@@ -75,6 +81,7 @@ Then use it:
 
 ```js
 events.on("create", () => {})
+
 events.create() // emits the create operation
 ```
 
@@ -88,6 +95,7 @@ Subscription listeners receive a single object argument. To add to that object, 
 events.on(({ hello }) => {
   /* hello === "world" */
 })
+
 events.emit({ hello: "world" })
 ```
 
@@ -95,6 +103,7 @@ Or use `withOptions` on the subscriber:
 
 ```js
 events.withOptions({ hello: "world" }).on(({ hello }) => {})
+
 events.emit()
 ```
 
@@ -104,6 +113,7 @@ The listener argument also contains an `event` property with extra information, 
 events.on(({ event }) => {
   /* event.args === [123, true] */
 })
+
 events.emit(123, true)
 ```
 
@@ -121,6 +131,7 @@ events.on(() => {
 events.on("after", () => {
   /* 3 */
 })
+
 events.emit()
 ```
 
@@ -132,6 +143,7 @@ Subscribe to any emit:
 
 ```js
 events.onAny(() => {})
+
 events.emit() // emits
 events.emit("hello") // emits
 events.emit("hello.world") // emits
@@ -141,6 +153,7 @@ When used with a dot-prop, it subscribes to any child prop emit:
 
 ```js
 events.onAny("emit.hello", () => {})
+
 events.emit("hello") // emits
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
@@ -152,7 +165,9 @@ Like `on`, but emit immediately if a previous emit occurred:
 
 ```js
 events.emit()
+
 events.onEmitted(() => {}) // emits immediately
+
 events.emit() // emits
 ```
 
@@ -162,7 +177,9 @@ Like `onAny`, but emit immediately if a previous emit occurred:
 
 ```js
 events.emit("hello.world")
+
 events.onAnyEmitted("emit.hello", () => {}) // emits immediately
+
 events.emit("hello.world") // emits
 events.emit() // doesn't emit
 ```
@@ -171,6 +188,7 @@ events.emit() // doesn't emit
 
 ```js
 events.once(() => {})
+
 events.emit() // emits
 events.emit() // doesn't emit
 ```
@@ -181,7 +199,9 @@ Like `once`, but emit immediately if a previous emit occurred:
 
 ```js
 events.emit()
+
 events.onceEmitted(() => {}) // emits immediately
+
 events.emit() // doesn't emit
 ```
 
@@ -191,6 +211,7 @@ A combination of `once` and `onAny`:
 
 ```js
 events.onceAny("emit.hello", () => {})
+
 events.emit("hello.world") // emits
 events.emit("hello.world") // doesn't emit
 ```
@@ -201,7 +222,9 @@ A combination of `once`, `onAny`, and `onEmitted`:
 
 ```js
 events.emit("hello.world")
+
 events.onceAnyEmitted("emit.hello", () => {}) // emits immediately
+
 events.emit("hello.world") // doesn't emit
 ```
 

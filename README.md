@@ -61,17 +61,17 @@ events.emit() // doesn't emit
 
 ## Operations
 
-Why do we have to specify `emit` before the the prop in this example?
+You might be confused why this subscription prop is `emit.hello`:
 
 ```js
 events.on("emit.hello", () => {})
 
-events.emit("hello")
+events.emit("hello") // emits
 ```
 
-Because `emit` is an "operation", and you can have more than one.
+This is because `emit` is an "operation", and you can have more than one.
 
-First, define the operation:
+First, define your custom operation:
 
 ```js
 events.setOp("create")
@@ -85,8 +85,6 @@ events.on("create", () => {})
 events.create() // emits the create operation
 ```
 
-Operation functions take the same arguments and behave similar to `emit`.
-
 ## Subscription listener argument
 
 Subscription listeners receive a single object argument. To add to that object, pass an object to the emitter:
@@ -99,22 +97,14 @@ events.on(({ hello }) => {
 events.emit({ hello: "world" })
 ```
 
-Or use `withOptions` on the subscriber:
-
-```js
-events.withOptions({ hello: "world" }).on(({ hello }) => {})
-
-events.emit()
-```
-
 The listener argument also contains an `event` property with extra information, such as the emitter arguments:
 
 ```js
 events.on(({ event }) => {
-  /* event.args === [123, true] */
+  /* event.args === [true] */
 })
 
-events.emit(123, true)
+events.emit(true)
 ```
 
 ## Prepositions (before or after)

@@ -1,17 +1,5 @@
 {
   "name": "dot-event",
-  "starters": [
-    "basics",
-    "babel",
-    "babel-scripts",
-    "babel-web",
-    "eslint",
-    "husky",
-    "jest",
-    "jest-browser",
-    "jest-scripts",
-    "watchman-babel"
-  ],
   "version": "2.7.0",
   "description": "Powerful event emitter",
   "keywords": [
@@ -27,6 +15,21 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/dot-event/core#readme",
+  "cyclops": {
+    "version-tasks": {}
+  },
+  "starters": [
+    "basics",
+    "babel",
+    "babel-scripts",
+    "babel-web",
+    "eslint",
+    "husky",
+    "jest",
+    "jest-browser",
+    "jest-scripts",
+    "watchman-babel"
+  ],
   "dependencies": {
     "@babel/runtime": "7.1.2"
   },

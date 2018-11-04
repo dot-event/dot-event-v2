@@ -48,7 +48,10 @@ describe("multi", () => {
       const if2 = async () => false
 
       events.on({
-        "emit.hello": [{ fn, if: if1 }, { fn2, if: if2 }],
+        "emit.hello": [
+          { if: [if1, () => fn] },
+          { if: [if2, () => fn2] },
+        ],
       })
 
       await events.emit("hello").catch(console.error)

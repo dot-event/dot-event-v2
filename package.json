@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/dot-event/core#readme",
-  "cyclops": {
+  "operations": {
     "git": {},
     "link": {},
     "starter": {},

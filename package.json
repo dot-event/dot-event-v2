@@ -11,10 +11,10 @@
   "author": "dot-event <oss@dot-event.io>",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/dot-event/core.git"
+    "url": "git+ssh://git@github.com/dot-event/dot-event.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/dot-event/core#readme",
+  "homepage": "https://github.com/dot-event/dot-event#readme",
   "operations": {
     "git": {},
     "link": {},

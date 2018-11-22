@@ -13,8 +13,10 @@ describe("onceAnyEmitted", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -29,8 +31,10 @@ describe("onceAnyEmitted", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(out).toEqual(payload)
@@ -48,8 +52,10 @@ describe("onceAnyEmitted", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -73,8 +79,10 @@ describe("onceAnyEmitted", () => {
         event: {
           listenProps: ["hello", "world"],
           op: "emit",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -100,8 +108,10 @@ describe("onceAnyEmitted", () => {
         event: {
           listenProps: ["hello", "world"],
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -119,8 +129,10 @@ describe("onceAnyEmitted", () => {
         event: {
           listenProps: ["hello", "*"],
           op: "emit",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -139,8 +151,10 @@ describe("onceAnyEmitted", () => {
         event: {
           listenProps: ["hello", "*"],
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -158,8 +172,10 @@ describe("onceAnyEmitted", () => {
         event: {
           listenProps: ["hello", "{var}"],
           op: "emit",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -178,8 +194,10 @@ describe("onceAnyEmitted", () => {
         event: {
           listenProps: ["hello", "{var}"],
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])

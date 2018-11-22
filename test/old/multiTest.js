@@ -18,6 +18,7 @@ describe("multi", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -97,6 +98,7 @@ describe("multi", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       const payload2 = {
@@ -107,6 +109,7 @@ describe("multi", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])

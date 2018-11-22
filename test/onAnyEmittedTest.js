@@ -13,8 +13,10 @@ describe("onAnyEmitted", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -24,6 +26,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -41,8 +44,10 @@ describe("onAnyEmitted", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -52,6 +57,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -75,8 +81,10 @@ describe("onAnyEmitted", () => {
         event: {
           listenProps: ["hello", "world"],
           op: "emit",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -87,6 +95,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -112,8 +121,10 @@ describe("onAnyEmitted", () => {
         event: {
           listenProps: ["hello", "world"],
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -124,6 +135,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -141,8 +153,10 @@ describe("onAnyEmitted", () => {
         event: {
           listenProps: ["hello", "*"],
           op: "emit",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -153,6 +167,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world"],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -171,8 +186,10 @@ describe("onAnyEmitted", () => {
         event: {
           listenProps: ["hello", "*"],
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -183,6 +200,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world"],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -200,8 +218,10 @@ describe("onAnyEmitted", () => {
         event: {
           listenProps: ["hello", "{var}"],
           op: "emit",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -213,6 +233,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world"],
         var: "world",
       }
 
@@ -232,8 +253,10 @@ describe("onAnyEmitted", () => {
         event: {
           listenProps: ["hello", "{var}"],
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
@@ -245,6 +268,7 @@ describe("onAnyEmitted", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world"],
         var: "world",
       }
 

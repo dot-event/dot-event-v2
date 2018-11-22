@@ -18,6 +18,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -35,8 +36,10 @@ describe("onceAny", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(out).toEqual(payload)
@@ -59,6 +62,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -84,6 +88,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -110,6 +115,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -135,6 +141,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -161,6 +168,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -187,6 +195,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
         var: "world",
       }
 
@@ -215,6 +224,7 @@ describe("onceAny", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello", "world", "again"],
         var: "world",
       }
 

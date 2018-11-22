@@ -18,11 +18,13 @@ describe("options", () => {
       event: {
         op: "emit",
         options: Object.assign({}, options, options2),
+        props: [],
         signal: {},
       },
       events: expect.any(Events),
       opt: true,
       opt2: true,
+      props: [],
     }
 
     expect(fn.mock.calls).toEqual([[payload]])
@@ -41,10 +43,12 @@ describe("options", () => {
         args: [{ opt: true }],
         op: "emit",
         options: { opt: true },
+        props: [],
         signal: {},
       },
       events: expect.any(Events),
       opt: true,
+      props: [],
     }
 
     expect(fn.mock.calls).toEqual([[payload]])

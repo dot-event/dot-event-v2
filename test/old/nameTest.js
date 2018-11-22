@@ -14,8 +14,10 @@ describe("name", () => {
       const payload = {
         event: {
           op: "emit",
+          props: [],
           signal: {},
         },
+        props: [],
         store: expect.any(Events),
       }
 

@@ -14,9 +14,11 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "emit",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload]])
@@ -61,10 +63,12 @@ describe("empty", () => {
           args: [options],
           op: "emit",
           options: options,
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
         hello: "world",
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -94,8 +98,10 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -113,8 +119,10 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -132,16 +140,20 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
         event: {
           op: "emit",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -161,9 +173,11 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "emit",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -187,6 +201,7 @@ describe("empty", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -204,9 +219,11 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "emit",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -224,8 +241,10 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -250,6 +269,7 @@ describe("empty", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -267,8 +287,10 @@ describe("empty", () => {
       const payload = {
         event: {
           op: "*",
+          props: [],
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])

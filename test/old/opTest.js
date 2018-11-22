@@ -13,9 +13,11 @@ describe("op", () => {
       const payload = {
         event: {
           op: "create",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -33,9 +35,11 @@ describe("op", () => {
       const payload = {
         event: {
           op: "create",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload]])
@@ -84,10 +88,12 @@ describe("op", () => {
         event: {
           op: "create",
           options: options,
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
         opt: true,
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -105,9 +111,11 @@ describe("op", () => {
         event: {
           args: [true],
           op: "create",
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -128,10 +136,12 @@ describe("op", () => {
           options: {
             opt: true,
           },
+          props: [],
           signal: {},
         },
         events: expect.any(Events),
         opt: true,
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])
@@ -150,13 +160,15 @@ describe("op", () => {
       await events.create().catch(console.error)
 
       const payload = {
-        event: { op: "emit", signal: {} },
+        event: { op: "emit", props: [], signal: {} },
         events: expect.any(Events),
+        props: [],
       }
 
       const payload2 = {
-        event: { op: "create", signal: {} },
+        event: { op: "create", props: [], signal: {} },
         events: expect.any(Events),
+        props: [],
       }
 
       expect(fn.mock.calls).toEqual([[payload], [payload2]])
@@ -178,6 +190,7 @@ describe("op", () => {
           signal: {},
         },
         events: expect.any(Events),
+        props: ["hello"],
       }
 
       expect(fn.mock.calls).toEqual([[payload]])

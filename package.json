@@ -55,7 +55,7 @@
     "prettier": "1.14.3",
     "rimraf": "2.6.2"
   },
-  "main": "dist/core.js",
+  "main": "dist/dot-event.js",
   "scripts": {
     "build": "babel lib --out-dir dist --source-maps",
     "prepublishOnly": "rimraf dist; npm run build",

@@ -1,4 +1,4 @@
-import dotEvent from "../../dist/core"
+import dotEvent from "../../"
 
 describe("prep", () => {
   describe("on", () => {

@@ -1,4 +1,4 @@
-import dotEvent, { Events } from "../../dist/core"
+import dotEvent, { Events } from "../../"
 
 describe("options", () => {
   test("subscriber and listener options", async () => {

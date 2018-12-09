@@ -1,6 +1,6 @@
 {
   "name": "dot-event",
-  "version": "2.12.7",
+  "version": "2.12.8",
   "description": "Powerful event emitter",
   "keywords": [
     "props",
